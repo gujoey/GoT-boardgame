@@ -1,0 +1,27 @@
+body{
+	position: relative;
+	background-color: $grey;
+}
+
+html, body{
+	min-height: 100%;
+}
+
+h1{
+	font-family: $h1-font;
+}
+
+button{
+	font-family: $btn-font;
+}
+
+p{
+	font-family: $p-font; 
+}
+
+.main-heading{
+	margin-top: 30px;
+	color: $white;
+	text-align: center;
+	font-size: 4em;
+} 
