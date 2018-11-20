@@ -1,13 +1,22 @@
 
 //animate selected screen with jQuery
-$("#select-snow").click(function(){
-	$("#snow-selected").fadeIn(400);
-});
+function selectedCharacter(name){
+	console.log(name);
+}
 
-$("#remove-snow").click(function(){
-	$("#snow-selected").fadeOut(400);
-});
+$(document).on('click','.btn', function(e){
+	let name ="#" + $(this)[0].dataset.name;
+	let open = $(this)[0].dataset.open;
+   	
+	//e.preventDefault();
 
+	if (open === "true"){
+		$(name).fadeIn(400);
+	}else{
+		$(name).fadeOut(400);
+	}
+
+});
 
 
 function createCard(apiRes){
@@ -42,6 +51,7 @@ function createCard(apiRes){
 	
 	//create inner column when card is selected by user
 	colInnerSelected = document.createElement("div");
+	colInnerSelected.id= apiRes[0].name.replace(" ", "-").toLowerCase();
 	colInnerSelected.className = "col-inner__selected";
 	colInner.appendChild(colInnerSelected);
 	
@@ -72,6 +82,9 @@ function createCard(apiRes){
 	
 	//create button to"selected character" card
 	btnSelectedChar = document.createElement("button");
+	btnSelectedChar.dataset.name = apiRes[0].name.replace(" ", "-").toLowerCase();
+	btnSelectedChar.dataset.open = false;
+	//btnSelectedChar.onclick = selectedCharacter("selected-" + apiRes[0].name.replace(" ", "-").toLowerCase());
 	btnSelectedChar.type = "button";
 	btnSelectedChar.className = "btn btn-lg col-inner__btn";
 	btnSelectedCharText = document.createTextNode("Select someone else");
@@ -147,6 +160,8 @@ function createCard(apiRes){
 	//create select character button
 	btn = document.createElement("button");
 	btn.type = "button";
+	btn.dataset.name = imgName;
+	btn.dataset.open = true;
 	btn.className = "btn btn-lg col-inner__btn";
 	
 	btnText = document.createTextNode("Select Character");
@@ -169,10 +184,10 @@ function getApi(param){
 
 //characters to select from
 let characters = [
-	"jon+snow",
-	"jon+snow",
-	"jon+snow",
 	"jon+snow"
+	/*"jon+snow",
+	"jon+snow",
+	"jon+snow"*/
 	/*"arya+stark",
 	"sansa+stark",
 	"tyrion+lannister",
