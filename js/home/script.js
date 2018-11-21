@@ -14,13 +14,27 @@ $(document).on('click','.btn', function(e){
 	let open = $(this)[0].dataset.open;
 
 	if (open === "true"){
-		$(name).fadeIn(400);
-		setCharacterCookie($(this)[0].dataset.name,true);
+		let p1, p2;
+	
+		p1 = Cookies.getJSON('player-1');
+		p2 = Cookies.getJSON('player-2');
+
+		if(p1.selected === true && p2.selected === true){
+			setTimeout(function(){ 
+				$('#twoSelected').modal('show');
+			}, 200);
+			return;
+		}else{
+			$(name).fadeIn(400);
+			setCharacterCookie($(this)[0].dataset.name,true);
+		}
 	}else{
 		$(name).fadeOut(400);
 		updateCharacterCookie($(this)[0].dataset.name,false);
 	}
 });
+
+//check if two charactes are already selected
 
 
 //set cookie function that check wether the user selects player for user or computer
@@ -42,7 +56,11 @@ function setCharacterCookie(name, selected){
 	p2 = Cookies.getJSON('player-2');
 	
 	if(p1.selected === true && p2.selected === true){
-		$('#startGame').modal('show');
+		setTimeout(function(){ 
+			$('#startGame').modal('show');
+		}, 400);
+		//console.log($('*[data-open="true"]'));
+		//$('*[data-open="true"]')[0].disabled=true;
 	}
 }
 

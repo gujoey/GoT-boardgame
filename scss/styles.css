@@ -22,6 +22,9 @@ p {
   text-align: center;
   font-size: 4em; }
 
+.red-color {
+  color: red; }
+
 .fa-info-circle {
   font-size: 100px;
   margin: 30px;
