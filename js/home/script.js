@@ -31,8 +31,10 @@ function setCharacterCookie(name, selected){
 	p2 = Cookies.getJSON('player-2');
 	
 	if (p1.selected === false){
+		$('*[data-character="' + name + '"]')[0].innerHTML="YOU";
 		Cookies.set("player-1", {character: name, selected: selected});
 	}else{
+		$('*[data-character="' + name + '"]')[0].innerHTML="COMPUTER";
 		Cookies.set("player-2", {character: name, selected: selected});
 	}
 	
@@ -102,7 +104,7 @@ function createCard(apiRes){
 	//create p element and text and append to the "selected character" card inside column
 	pSelected = document.createElement("p");
 	pSelectedStrong = document.createElement("strong");
-	pSelectedStrong.dataset.what = "player";
+	pSelectedStrong.dataset.character = apiRes[0].name.replace(" ", "-").toLowerCase();
 	pSelectedStrongText = document.createTextNode("YOU");
 	pSelectedStrong.appendChild(pSelectedStrongText);
 	pSelected.appendChild(pSelectedStrong);
@@ -124,7 +126,6 @@ function createCard(apiRes){
 	btnSelectedChar = document.createElement("button");
 	btnSelectedChar.dataset.name = apiRes[0].name.replace(" ", "-").toLowerCase();
 	btnSelectedChar.dataset.open = false;
-	//btnSelectedChar.onclick = selectedCharacter("selected-" + apiRes[0].name.replace(" ", "-").toLowerCase());
 	btnSelectedChar.type = "button";
 	btnSelectedChar.className = "btn btn-lg col-inner__btn";
 	btnSelectedCharText = document.createTextNode("Select someone else");
