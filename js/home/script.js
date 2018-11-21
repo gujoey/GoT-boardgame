@@ -1,6 +1,8 @@
 //open tutorial modal
 $( document ).ready(function() {
     $('#tutorialModal').modal('show');
+	Cookies.set("player-1", {character: "", selected: false});
+	Cookies.set("player-2", {character: "", selected: false});
 });
 
 
@@ -13,20 +15,48 @@ $(document).on('click','.btn', function(e){
 
 	if (open === "true"){
 		$(name).fadeIn(400);
+		setCharacterCookie($(this)[0].dataset.name,true);
 	}else{
 		$(name).fadeOut(400);
+		updateCharacterCookie($(this)[0].dataset.name,false);
 	}
 });
 
-function characterCookie(name, selected){
-	//let char1 = {player: 1, character: name, selected: true};
-	Cookies.set("player-1", {character: name, selected: selected});
-	Cookies.set('name', 'value');
 
-	console.log("kjørt");
+//set cookie function that check wether the user selects player for user or computer
+function setCharacterCookie(name, selected){
+	let p1, p2;
+	
+	p1 = Cookies.getJSON('player-1');
+	p2 = Cookies.getJSON('player-2');
+	
+	if (p1.selected === false){
+		Cookies.set("player-1", {character: name, selected: selected});
+	}else{
+		Cookies.set("player-2", {character: name, selected: selected});
+	}
+	
+	p1 = Cookies.getJSON('player-1');
+	p2 = Cookies.getJSON('player-2');
+	
+	if(p1.selected === true && p2.selected === true){
+		$('#startGame').modal('show');
+	}
 }
 
-characterCookie("test",true);
+//update cookie function that checks if the user would like to change user for him self or the computer
+function updateCharacterCookie(name, selected){
+	let p1, p2;
+	
+	p1 = Cookies.getJSON('player-1');
+	p2 = Cookies.getJSON('player-2');
+	
+	if(p1.character === name && p1.selected===true){
+		Cookies.set("player-1", {character: "", selected: selected});
+	}else if(p2.character === name && p2.selected===true){
+		Cookies.set("player-2", {character: "", selected: selected});
+	}
+}
 
 function createCard(apiRes){
 	//selected character variables
@@ -193,7 +223,7 @@ function getApi(param){
 	})
 	.then(result=>{
 		createCard(result);
-		console.log(result);
+		//console.log(result);
 	}) 
 }
 
