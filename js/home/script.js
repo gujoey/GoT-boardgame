@@ -189,9 +189,15 @@ function getApi(param){
 //characters to select from
 let characters = [
 	"jon+snow",
-	"jon+snow",
-	"jon+snow",
-	"jon+snow"
+	"gregor+clegane",
+	"cersei+lannister",
+	"sansa+stark",
+	"tyrion+lannister",
+	"arya+stark",
+	"joffrey+baratheon",
+	"petyr+baelish",
+	"ramsay+snow",
+	"margaery+tyrell"
 	/*"arya+stark",
 	"sansa+stark",
 	"tyrion+lannister",
