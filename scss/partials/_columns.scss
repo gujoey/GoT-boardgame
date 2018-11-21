@@ -1,3 +1,16 @@
+.fa-info-circle{
+	font-size: 100px;
+	margin: 30px;
+	color: $white;
+	position: fixed;
+	top: 0;
+	right: 0;
+	&:hover{
+		color: $light-grey;
+		cursor: pointer;
+	}
+}
+
 .col-inner{
 	position: relative; 
 	border: 4px $black solid;
@@ -5,6 +18,7 @@
 	text-align: center;
 	margin-top: 15px;
 	background-color: $light-grey;
+	//height: 96%;
 
 	
 	&__selected{

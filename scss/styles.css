@@ -22,6 +22,17 @@ p {
   text-align: center;
   font-size: 4em; }
 
+.fa-info-circle {
+  font-size: 100px;
+  margin: 30px;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  right: 0; }
+  .fa-info-circle:hover {
+    color: #B9B9B9;
+    cursor: pointer; }
+
 .col-inner {
   position: relative;
   border: 4px #000 solid;

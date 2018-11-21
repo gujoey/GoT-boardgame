@@ -5,15 +5,11 @@ $( document ).ready(function() {
 
 
 //animate selected screen with jQuery
-function selectedCharacter(name){
-	console.log(name);
-}
-
 $(document).on('click','.btn', function(e){
+	e.preventDefault();
+	
 	let name ="#" + $(this)[0].dataset.name;
 	let open = $(this)[0].dataset.open;
-   	
-	//e.preventDefault();
 
 	if (open === "true"){
 		$(name).fadeIn(400);
@@ -22,6 +18,15 @@ $(document).on('click','.btn', function(e){
 	}
 });
 
+function characterCookie(name, selected){
+	//let char1 = {player: 1, character: name, selected: true};
+	Cookies.set("player-1", {character: name, selected: selected});
+	Cookies.set('name', 'value');
+
+	console.log("kjørt");
+}
+
+characterCookie("test",true);
 
 function createCard(apiRes){
 	//selected character variables
@@ -67,6 +72,7 @@ function createCard(apiRes){
 	//create p element and text and append to the "selected character" card inside column
 	pSelected = document.createElement("p");
 	pSelectedStrong = document.createElement("strong");
+	pSelectedStrong.dataset.what = "player";
 	pSelectedStrongText = document.createTextNode("YOU");
 	pSelectedStrong.appendChild(pSelectedStrongText);
 	pSelected.appendChild(pSelectedStrong);
@@ -157,7 +163,12 @@ function createCard(apiRes){
 	pCultureBr = document.createElement("br");
 	pCulture.appendChild(pCultureBr);
 	
-	pCultureText = document.createTextNode(apiRes[0].culture);
+	if(apiRes[0].culture == "" ){
+		pCultureText = document.createTextNode("None");
+	}else{
+		pCultureText = document.createTextNode(apiRes[0].culture);
+	}
+	
 	pCulture.appendChild(pCultureText);
 	colInner.appendChild(pCulture);
 	
@@ -198,14 +209,6 @@ let characters = [
 	"petyr+baelish",
 	"ramsay+snow",
 	"margaery+tyrell"
-	/*"arya+stark",
-	"sansa+stark",
-	"tyrion+lannister",
-	"cersei+lannister",
-	"gregor+clegane",
-	"sandor+clegane",
-	"joffrey+baratheon",
-	"petyr+baelish"*/
 ];
 
 //loop throug array and call getApi funtion
