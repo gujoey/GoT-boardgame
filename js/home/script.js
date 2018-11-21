@@ -1,3 +1,8 @@
+//open tutorial modal
+$( document ).ready(function() {
+    $('#tutorialModal').modal('show');
+});
+
 
 //animate selected screen with jQuery
 function selectedCharacter(name){
@@ -15,7 +20,6 @@ $(document).on('click','.btn', function(e){
 	}else{
 		$(name).fadeOut(400);
 	}
-
 });
 
 
@@ -184,10 +188,10 @@ function getApi(param){
 
 //characters to select from
 let characters = [
-	"jon+snow"
-	/*"jon+snow",
 	"jon+snow",
-	"jon+snow"*/
+	"jon+snow",
+	"jon+snow",
+	"jon+snow"
 	/*"arya+stark",
 	"sansa+stark",
 	"tyrion+lannister",

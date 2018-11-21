@@ -2,6 +2,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="description" content="A board game based on Game of Thrones characters">
+		<meta name="keywords" content="GoT, Game of Thrones, Boardgame">
+		<meta name="author" content="Øyvind Gujord">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
 		<title>A Game of Boards</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="stylesheet" href="../css/styles.css">
@@ -82,6 +87,36 @@
 			</div>
 		</main>
 		
+	
+
+		<!-- Modal -->
+		<div class="modal fade" id="tutorialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Welcome to A Game of Boards</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>
+							<strong>What is Game of Boards?<br></strong>
+							A Game of Boards is an online board game that is a mix between the tv show Game of Thrones and the board game Snakes and Ladders.<br><br>
+							<strong>Tutorial</strong><br>
+							If you have never played this game before, we suggest that you do a quick run through of the tutorial by clicking the 'Run Tutorial' Button. <br><br>
+							<strong>Skip tutorial</strong><br>
+							If you know how to play or don't want to run the tutorial, you can press the 'Skip Tutorial' button. You can always run the tutorial later by clicking the info button in the top right corner.<br><br>
+							<strong>Good luck and have fun!</strong>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Skip Tutorial</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Run Tutorial</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<script
   			src="https://code.jquery.com/jquery-3.3.1.min.js"
