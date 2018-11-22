@@ -126,7 +126,7 @@ function createCard(apiRes){
 	
 	//create col-md-3
 	col = document.createElement("div");
-	col.className = "col-md-3";
+	col.className = "col-lg-3";
 	row.appendChild(col);
 	
 	//create inner column
