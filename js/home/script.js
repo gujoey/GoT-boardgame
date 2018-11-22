@@ -314,6 +314,7 @@ $(document).ready(function() {
 	});
 
 	//tutorial
+	/*
 	$("#runTutorial").click(function(){
 		runTutorial();
 	});
@@ -342,8 +343,7 @@ $(document).ready(function() {
 		$("#btn-select-1").click(function(){
 			$('#btn-select-1').popover('hide');
 		});*/
-	}
-	
+	/*}*/
 	//animate selected screen with jQuery
 	$(document).on('click','.btn', function(e){
 		e.preventDefault();
