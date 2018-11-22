@@ -5,10 +5,15 @@
 	position: fixed;
 	top: 0;
 	right: 0;
+	
 	&:hover{
 		color: $light-grey;
 		cursor: pointer;
 	}
+}
+
+.popover{
+	top: -30px!important;
 }
 
 .col-inner{

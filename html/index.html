@@ -15,7 +15,7 @@
 
 	<body>
 		<main>
-			<i class="fas fa-info-circle"></i>
+			<i id="info" class="fas fa-info-circle"></i>
 			<div class="container">
 				<h1 class="main-heading"><strong>A Game of Boards</strong></h1>
 				<div id="row" class="row"></div>
@@ -24,9 +24,9 @@
 		
 	
 
-		<!-- Modal -->
+		<!-- Modal Tutorial -->
 		<div class="modal fade" id="tutorialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLongTitle">Welcome to A Game of Boards</h5>
@@ -49,12 +49,13 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Skip Tutorial</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Run Tutorial</button>
+						<button id="runTutorial" type="button" class="btn btn-primary" data-dismiss="modal">Run Tutorial</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		
+		<!-- Modal Start Game -->
 		<div class="modal fade" id="startGame" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
@@ -70,17 +71,19 @@
 							You have now selected characters for your self and for the computer. Click the "Start" button if you would like to start the game.
 							<br><br>
 							<strong>Select different characters</strong><br>
-							If you would like to select different characters click the "Change Characters" button.
+							If you would like to select different characters click the "Change characters" button.
 						</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Change characters</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Start</button>
+						<button id="btn-change-char" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" data-placement="bottom" data-contetnt="Click this button to select different characters." title="Select different characters">Change characters</button>
+						<button id="btn-start-game" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" data-placement="top" data-contetnt="Click this button to start game" title="Start game">Start</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		
+		
+		<!-- Modal Error -->
 		<div class="modal fade" id="twoSelected" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
@@ -92,7 +95,7 @@
 					</div>
 					<div class="modal-body">
 						<p>
-							Two characters are already selected. Please deselect on of them by clicking the "Select someone else" button before selecting another character.
+							Two characters are already selected. Please deselect one of them by clicking the "Select someone else" button before selecting another character.
 						</p>
 					</div>
 					<div class="modal-footer">

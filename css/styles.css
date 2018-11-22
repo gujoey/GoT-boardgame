@@ -45,6 +45,10 @@ p {
   cursor: pointer;
 }
 
+.popover {
+  top: -30px !important;
+}
+
 .col-inner {
   position: relative;
   border: 4px #000 solid;
