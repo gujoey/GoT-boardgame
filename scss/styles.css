@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Cinzel+Decorative|Raleway|Roboto");
 body {
   position: relative;
-  background-color: #535353; }
+  background-image: url("../img/photos/forest-1.jpg"); }
 
 html, body {
   min-height: 100%; }
@@ -45,7 +45,7 @@ p {
   padding: 15px;
   text-align: center;
   margin-top: 15px;
-  background-color: #B9B9B9; }
+  background-color: rgba(185, 185, 185, 0.95); }
   .col-inner__selected {
     display: none;
     padding: 15px;
@@ -71,4 +71,35 @@ p {
     width: 100%; }
   .col-inner__img {
     width: 60%;
-    height: auto; }
+    margin: auto; }
+
+.board {
+  width: 1000px;
+  margin: auto;
+  margin-top: 70px;
+  height: 100%; }
+  .board__row {
+    margin-top: 4px; }
+  .board__square {
+    height: 150px;
+    width: 150px;
+    padding: 10px;
+    background-color: #fff;
+    display: inline-block;
+    margin: 0; }
+    .board__square--black {
+      background-color: #000;
+      color: #fff; }
+    .board__square--trap {
+      background-color: teal; }
+  .board__token {
+    width: 80%;
+    vertical-align: middle;
+    margin: auto;
+    display: block; }
+    .board__token--two-tokens {
+      position: relative;
+      left: 22%;
+      bottom: 22%;
+      width: 55%;
+      margin: 0; }

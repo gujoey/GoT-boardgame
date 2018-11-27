@@ -1,104 +1,3 @@
-/*$( document ).ready(function() {
-	
-	//open tutorial modal on document ready
-    $('#tutorialModal').modal('show');
-	
-	//set player cookies
-	Cookies.set("player-1", {character: "", selected: false});
-	Cookies.set("player-2", {character: "", selected: false});
-	
-});
-
-//opens tutorial modal when info button is clicked
-$("#info").click(function(){
-	$('#tutorialModal').modal('show');
-});
-
-//tutorial
-
-$("#runTutorial").click(function(){
-	$('#btn-select-0').popover('show');
-});
-
-$("#btn-select-0").click(function(){
-	$('#btn-select-0').popover('hide');
-	$("#btn-select-1").popover("show");
-});
-
-$("#btn-select-0").click(function(){
-	$('#btn-select-0').popover('hide');
-});
-
-//animate selected screen with jQuery
-$(document).on('click','.btn', function(e){
-	e.preventDefault();
-	
-	let name ="#" + $(this)[0].dataset.name;
-	let open = $(this)[0].dataset.open;
-
-	if (open === "true"){
-		let p1, p2;
-	
-		p1 = Cookies.getJSON('player-1');
-		p2 = Cookies.getJSON('player-2');
-		
-		//give error message if to characters are already selected
-		if(p1.selected === true && p2.selected === true){
-			setTimeout(function(){ 
-				$('#twoSelected').modal('show');
-			}, 200);
-			return;
-		}else{
-			$(name).fadeIn(400);
-			setCharacterCookie($(this)[0].dataset.name,true);
-		}
-	}else{
-		$(name).fadeOut(400);
-		updateCharacterCookie($(this)[0].dataset.name,false);
-	}
-});
-
-
-//set cookie function that check wether the user selects player for user or computer
-function setCharacterCookie(name, selected){
-	let p1, p2;
-	
-	p1 = Cookies.getJSON('player-1');
-	p2 = Cookies.getJSON('player-2');
-	
-	if (p1.selected === false){
-		$('*[data-character="' + name + '"]')[0].innerHTML="YOU";
-		Cookies.set("player-1", {character: name, selected: selected});
-	}else{
-		$('*[data-character="' + name + '"]')[0].innerHTML="COMPUTER";
-		Cookies.set("player-2", {character: name, selected: selected});
-	}
-	
-	p1 = Cookies.getJSON('player-1');
-	p2 = Cookies.getJSON('player-2');
-	
-	//check if two characters are selected, and if true, show modal that prompts user to start game
-	if(p1.selected === true && p2.selected === true){
-		setTimeout(function(){ 
-			$('#startGame').modal('show');
-		}, 400);
-	}
-}
-
-//update cookie function that checks if the user would like to change user for him self or the computer
-function updateCharacterCookie(name, selected){
-	let p1, p2;
-	
-	p1 = Cookies.getJSON('player-1');
-	p2 = Cookies.getJSON('player-2');
-	
-	if(p1.character === name && p1.selected===true){
-		Cookies.set("player-1", {character: "", selected: selected});
-	}else if(p2.character === name && p2.selected===true){
-		Cookies.set("player-2", {character: "", selected: selected});
-	}
-}*/
-
 let cardsI;
 cardsI=0;
 
@@ -124,9 +23,9 @@ function createCard(apiRes){
 	//get the row element
 	row = document.getElementById("row");
 	
-	//create col-md-3
+	//create col-lg-4
 	col = document.createElement("div");
-	col.className = "col-lg-3";
+	col.className = "col-lg-4";
 	row.appendChild(col);
 	
 	//create inner column
@@ -254,11 +153,11 @@ function createCard(apiRes){
 	btn.id="btn-select-"+cardsI;
 	btn.dataset.name = imgName;
 	btn.dataset.open = true;
-	btn.dataset.toggle="popover";
-	btn.dataset.placement="top";
-	btn.dataset.container="body";
-	btn.title="Select Character";
-	btn.dataset.content="Click this button to select a character for yourself. After one characater is selected then select a Character for the computer.";
+	//btn.dataset.toggle="popover";
+	//btn.dataset.placement="top";
+	//btn.dataset.container="body";
+	//btn.title="Select Character";
+	//btn.dataset.content="Click this button to select a character for yourself. After one characater is selected then select a Character for the computer.";
 	
 	btnText = document.createTextNode("Select character");
 	btn.appendChild(btnText);
@@ -344,6 +243,7 @@ $(document).ready(function() {
 			$('#btn-select-1').popover('hide');
 		});*/
 	/*}*/
+	
 	//animate selected screen with jQuery
 	$(document).on('click','.btn', function(e){
 		e.preventDefault();
@@ -413,4 +313,10 @@ $(document).ready(function() {
 			Cookies.set("player-2", {character: "", selected: selected});
 		}
 	}
+	
+	//redirect to game.html when start game button is clicked
+	$(document).on('click','#btn-start-game', function(e){
+		e.preventDefault();
+		window.location.replace("game.html");
+	});
 });

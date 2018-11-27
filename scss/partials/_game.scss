@@ -1,0 +1,43 @@
+.board{
+	width: 1000px;
+	margin: auto;
+	margin-top: 70px;
+	height: 100%;
+	
+	&__row{
+		margin-top: 4px;
+	}
+	
+	&__square{
+		height: 150px;
+		width: 150px;
+		padding: 10px;
+		background-color: $white;
+		display: inline-block;
+		margin: 0;
+			
+		&--black{
+			background-color: $black;
+			color: $white;
+		}
+		&--trap{
+			background-color: teal;
+		}
+	}
+	
+	&__token{
+		width: 80%;
+		vertical-align: middle;
+		margin: auto;
+		display: block;
+		&--two-tokens{
+			position: relative;
+			left: 22%;
+			bottom: 22%;
+			width: 55%;
+			margin: 0;
+		}
+	}
+}
+
+
