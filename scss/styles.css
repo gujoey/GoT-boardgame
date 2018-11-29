@@ -103,3 +103,30 @@ p {
       bottom: 22%;
       width: 55%;
       margin: 0; }
+  .board__btn {
+    height: 50px;
+    width: 200px; }
+    .board__btn--save-game {
+      position: absolute;
+      top: 650px;
+      left: 100px;
+      background-color: teal; }
+    .board__btn--new-game {
+      position: absolute;
+      top: 715px;
+      left: 100px;
+      background-color: red; }
+    .board__btn--dice {
+      position: absolute;
+      top: 700px;
+      right: 200px;
+      width: 100px; }
+  .board__dice-nr {
+    background-color: #fff;
+    text-align: center;
+    position: absolute;
+    font-size: 4em;
+    top: 580px;
+    right: 200px;
+    height: 100px;
+    width: 100px; }

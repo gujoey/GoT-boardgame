@@ -38,6 +38,38 @@
 			margin: 0;
 		}
 	}
+	&__btn{
+		height: 50px;
+		width: 200px;
+		&--save-game{
+			position: absolute;
+			top:650px;
+			left: 100px;
+			background-color: $teal;
+		}
+		&--new-game{
+			position: absolute;
+			top: 715px;
+			left: 100px;
+			background-color: $red;
+		}
+		&--dice{
+			position: absolute;
+			top: 700px;
+			right: 200px;
+			width: 100px;
+		}
+	}
+	&__dice-nr{
+		background-color: $white;
+		text-align: center;
+		position: absolute;
+		font-size: 4em;
+		top: 580px;
+		right: 200px;
+		height: 100px;
+		width: 100px;
+	}
 }
 
 
