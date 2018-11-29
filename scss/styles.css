@@ -130,3 +130,6 @@ p {
     right: 200px;
     height: 100px;
     width: 100px; }
+
+.popover {
+  margin-bottom: 50px; }

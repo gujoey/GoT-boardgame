@@ -153,11 +153,6 @@ function createCard(apiRes){
 	btn.id="btn-select-"+cardsI;
 	btn.dataset.name = imgName;
 	btn.dataset.open = true;
-	//btn.dataset.toggle="popover";
-	//btn.dataset.placement="top";
-	//btn.dataset.container="body";
-	//btn.title="Select Character";
-	//btn.dataset.content="Click this button to select a character for yourself. After one characater is selected then select a Character for the computer.";
 	
 	btnText = document.createTextNode("Select character");
 	btn.appendChild(btnText);
@@ -204,45 +199,14 @@ $(document).ready(function() {
     $('#tutorialModal').modal('show');
 	
 	//set player cookies
-	Cookies.set("player-1", {character: "", selected: false});
-	Cookies.set("player-2", {character: "", selected: false});
+	Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
+	Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
 	
 	//opens tutorial modal when info button is clicked
 	$("#info").click(function(){
 		$('#tutorialModal').modal('show');
 	});
 
-	//tutorial
-	/*
-	$("#runTutorial").click(function(){
-		runTutorial();
-	});
-	
-	function runTutorial(){
-		//$('[data-toggle="popover"]').popover("show"); 
-		
-		
-		$('#btn-select-0').popover('show');
-
-		$("#btn-select-0").click(function(){
-			$('#btn-select-0').popover('hide');
-			$("#btn-select-1").popover("show");
-		});
-
-		$(document).on('click','#btn-select-1',function(){
-			$('#btn-select-1').popover('hide');
-			
-			setTimeout(function(){
-				$('#btn-change-char').popover('show');
-				$('#btn-start-game').popover('show');
-			},400);
-		});
-		
-		/*
-		$("#btn-select-1").click(function(){
-			$('#btn-select-1').popover('hide');
-		});*/
-	/*}*/
 	
 	//animate selected screen with jQuery
 	$(document).on('click','.btn', function(e){
@@ -283,10 +247,10 @@ $(document).ready(function() {
 
 		if (p1.selected === false){
 			$('*[data-character="' + name + '"]')[0].innerHTML="YOU";
-			Cookies.set("player-1", {character: name, selected: selected});
+			Cookies.set("player-1", {character: name, selected: selected, currentField: 1, turn: true, rolledSix: false});
 		}else{
 			$('*[data-character="' + name + '"]')[0].innerHTML="COMPUTER";
-			Cookies.set("player-2", {character: name, selected: selected});
+			Cookies.set("player-2", {character: name, selected: selected, currentField: 1, turn: false, rolledSix: false});
 		}
 
 		p1 = Cookies.getJSON('player-1');
@@ -308,9 +272,9 @@ $(document).ready(function() {
 		p2 = Cookies.getJSON('player-2');
 
 		if(p1.character === name && p1.selected===true){
-			Cookies.set("player-1", {character: "", selected: selected});
+			Cookies.set("player-1", {character: "", selected: selected, currentField: 1, turn: true, rolledSix: false});
 		}else if(p2.character === name && p2.selected===true){
-			Cookies.set("player-2", {character: "", selected: selected});
+			Cookies.set("player-2", {character: "", selected: selected, currentField: 1, turn: false, rolledSix: false});
 		}
 	}
 	
