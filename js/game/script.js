@@ -41,17 +41,12 @@ class Game{
 	newGame(){
 		let traps;
 		
-		//Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
-		//Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
-		//charname must be retrieved
-		
 		let p1, p2;
 		p1= Cookies.getJSON('player-1');
 		p2 = Cookies.getJSON('player-2');
 		
-		console.log(p1);
-		console.log(p2);
-		
+		//console.log(p1);
+		//console.log(p2);
 		
 		p1.currentField=1;
 		p1.rolledSix=false;
@@ -65,7 +60,8 @@ class Game{
 		console.log(p2)
 		Cookies.set("player-2", p2);
 		
-		
+		console.log(p1);
+		console.log(p2);
 		
 		//get all traps based on dataset name
 		traps=document.querySelectorAll("[data-trap='true']");
@@ -77,6 +73,7 @@ class Game{
 			}else{
 				traps[i].className="board__square board__square--black";
 			}
+			traps[i].dataset.trap="false";
 		}
 		
 		//delet the tokens that is already on the board
@@ -111,7 +108,7 @@ class Character{
 		return this.name;
 	}
 	rollDice(){
-		let num, diceNr, player,  playerObj, field, fieldPosition, token, newField;
+		let num, diceNr, player,  playerObj, playerOne, playerTwo, field, fieldPosition, token, newField;
 		num = randomize(1,7,1);
 		
 		player ="player-"+this.playerNr;
@@ -122,14 +119,21 @@ class Character{
 			Cookies.set(player, playerObj);
 		}
 		
+		
 		diceNr = document.getElementById("show-dice-nr");
 		diceNr.innerHTML=num[0];
 		
 		playerObj = Cookies.getJSON(player);
 		field = Number(playerObj.currentField);
 		field += num[0];
+		if (field>=30){
+			field=30;
+		}
 		playerObj.currentField=field;
 		Cookies.set(player, playerObj);
+		
+		playerOne =Cookies.getJSON("player-1");
+		playerTwo =Cookies.getJSON("player-2");
 		
 		//fieldPosition=document.querySelector(`[data-field=\"${field}\"]`);
 		//console.log(fieldPosition);
@@ -139,7 +143,13 @@ class Character{
 		token = document.getElementById(player);
 		token.className="board__token";
 		newField = document.querySelector(`[data-field=\"${field}\"]`);
-/*		
+		
+		if (playerOne.currentField === playerTwo.currentField){
+				document.getElementById("player-1").className = "board__token board__token--two-tokens";
+				document.getElementById("player-2").className = "board__token board__token--two-tokens";
+		
+		}
+		/*		
 		console.log(newField);
 		console.log(newField.getBoundingClientRect());
 		console.log(player);*/
@@ -152,25 +162,62 @@ class Character{
 		
 		newField.appendChild(token);
 		
-		if (player === "player-1"){
-			let playerObjTwo = Cookies.getJSON("player-2")
-			
+		//check if player landed on trap
+		if (newField.dataset.trap===true || newField.dataset.trap==="true"){
+			let card = getCard();
+			console.log(card);
+			if (card.moveToField<field){
+				document.getElementById("textCardField").innerHTML=card.textBackWard;
+			}else if(card.moveToField===field){
+				document.getElementById("textCardField").innerHTML=card.textCurrent;
+			}else if(card.moveToField>field){
+				document.getElementById("textCardField").innerHTML=card.textForward;
+			}
+			$("#cardFieldModal").modal("show");
 			playerObj = Cookies.getJSON(player);
-			playerObj.turn=false;
+			playerObj.currentField=card.moveToField;
+			console.log(playerObj);
 			Cookies.set(player, playerObj);
 			
-			playerObjTwo.turn= true;
-			Cookies.set("player-2", playerObjTwo);
-		}else{
-			let playerObjTwo = Cookies.getJSON("player-2");
-			playerObjTwo.turn=false;
-			cookies.set("player-2", playerObjTwo);
+			$("#closeCardModal").click(function(){
+				setTimeout(function(){
+					newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+					newField.appendChild(token);
+				},500);
+			});
 			
-			playerObj = Cookies.getJSON(player);
-			playerObj.turn=true;
-			Cookies.set(player, playerObj);
 		}
 		
+		if (num[0]===6){
+			playerObj.rolledSix=true;
+			Cookies.set(player, playerObj);
+			setTimeout(function(){
+				$("#rolledSixModal").modal("show");
+			},1000);
+			
+		}else{
+			if (player === "player-1"){
+				let playerObjTwo = Cookies.getJSON("player-2")
+
+				playerObj = Cookies.getJSON(player);
+				playerObj.turn=false;
+				Cookies.set(player, playerObj);
+
+				playerObjTwo.turn= true;
+				Cookies.set("player-2", playerObjTwo);
+				setTimeout(function(){
+					p2.rollDice();
+				}, 2000);
+			}else{
+				let playerObjTwo = Cookies.getJSON("player-2");
+				playerObjTwo.turn=false;
+				Cookies.set("player-2", playerObjTwo);
+
+				playerObj = Cookies.getJSON(player);
+				playerObj.turn=true;
+				Cookies.set(player, playerObj);
+			}
+		}
 		console.log(Cookies.getJSON("player-1"));
 		console.log(Cookies.getJSON("player-2"));
 	}
@@ -198,6 +245,41 @@ function randomize(min, max, amt){
 		numbers.push(rnd);
 	}
 	return numbers;
+}
+
+//trap cards
+let traps = [
+	{
+		textForward:"", 
+		textCurrent: "", 
+		textBackWard:"You forgot your sword at home, and you can not go anywhere without it. You therefore have to move back to start", 
+		moveToField: 1,
+	},
+	{
+		textForward:"You met Daenerys dragons and where able to climb it and use it to shorten your travel. You can therefore move forward to field 15!", 
+		textCurrent: "You met Daenerys dragons, but didnt manage to climb it. You there have to stay at your current position.", 
+		textBackWard:"You met Daenerys dragons and where able to climb it but you couldn't controll it from flying backwards. You therefore have to move back to field 15!", 
+		moveToField: 15
+	},
+	
+	{
+		textForward:"You are at The Wall, and The Nights Watch decides to let you in. You Can therefore move to filed 9", 
+		textCurrent: "You are at The Wall, and since you have an important meeting there, you're going to have to stay in your current position.", 
+		textBackWard:"You are at The Wall, but The Nights Watch won't let you through. You have to find another way around, so you go back to field 9", 
+		moveToField: 9
+	},
+	{
+		textForward:"You met Hodor, and he was wiling to carry you while you slept. You can therefore move to field 21 ", 
+		textCurrent: "You met Hodor, but he wasn't willing to carry you anywhere. You therefore have to stay in your current position", 
+		textBackWard:"You met Hodor, but he was beeing chased by white walkers. You have no other choice but to run aswell. You therefore have to move back to field 21", 
+		moveToField: 21
+	}
+];
+
+//get cards
+function getCard(){
+	let number = randomize(0,traps.length,1);
+	return traps[number[0]];
 }
 
 //roll dice click eventlistener
@@ -229,4 +311,3 @@ $('#player-1').draggable({
 	snap:true,
 	cursor: "move"
 });
-

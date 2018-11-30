@@ -18,44 +18,44 @@
 			<i id="info" class="fas fa-info-circle"></i>
 			<div class="board">
 				<div class="board__row">
-					<div data-field="30" class="board__square">30</div>
-					<div data-field="29" class="board__square board__square--black">29</div>
-					<div data-field="28" class="board__square">28</div>
-					<div data-field="27" class="board__square board__square--black">27</div>
-					<div data-field="26" class="board__square">26</div>
-					<div data-field="25" class="board__square board__square--black">25</div>
+					<div data-field="30" data-trap="false" class="board__square">30</div>
+					<div data-field="29" data-trap="false" class="board__square board__square--black">29</div>
+					<div data-field="28" data-trap="false" class="board__square">28</div>
+					<div data-field="27" data-trap="false" class="board__square board__square--black">27</div>
+					<div data-field="26" data-trap="false" class="board__square">26</div>
+					<div data-field="25" data-trap="false" class="board__square board__square--black">25</div>
 				</div>
 				<div class="board__row">
-					<div data-field="19" class="board__square board__square--black">19</div>
-					<div data-field="20" class="board__square">20</div>
-					<div data-field="21" class="board__square board__square--black">21</div>
-					<div data-field="22" class="board__square">22</div>
-					<div data-field="23" class="board__square board__square--black">23</div>
-					<div data-field="24" class="board__square">24</div>
+					<div data-field="19" data-trap="false" class="board__square board__square--black">19</div>
+					<div data-field="20" data-trap="false" class="board__square">20</div>
+					<div data-field="21" data-trap="false" class="board__square board__square--black">21</div>
+					<div data-field="22" data-trap="false" class="board__square">22</div>
+					<div data-field="23" data-trap="false" class="board__square board__square--black">23</div>
+					<div data-field="24" data-trap="false" class="board__square">24</div>
 				</div>
 				<div class="board__row">
-					<div data-field="18" class="board__square">18</div>
-					<div data-field="17" class="board__square board__square--black">17</div>
-					<div data-field="16" class="board__square">16</div>
-					<div data-field="15" class="board__square board__square--black">15</div>
-					<div data-field="14" class="board__square">14</div>
-					<div data-field="13" class="board__square board__square--black">13</div>
+					<div data-field="18" data-trap="false" class="board__square">18</div>
+					<div data-field="17" data-trap="false" class="board__square board__square--black">17</div>
+					<div data-field="16" data-trap="false" class="board__square">16</div>
+					<div data-field="15" data-trap="false" class="board__square board__square--black">15</div>
+					<div data-field="14" data-trap="false" class="board__square">14</div>
+					<div data-field="13" data-trap="false" class="board__square board__square--black">13</div>
 				</div>
 				<div class="board__row">
-					<div data-field="7" class="board__square board__square--black"><p>7</p></div>
-					<div data-field="8" class="board__square"><p>8</p></div>
-					<div data-field="9" class="board__square board__square--black"><p>9</p></div>
-					<div data-field="10" class="board__square"><span>10</span></div>
-					<div data-field="11" class="board__square board__square--black"><p>11</p></div>
-					<div data-field="12" class="board__square"><p>12</p></div>
+					<div data-field="7" data-trap="false" class="board__square board__square--black"><p>7</p></div>
+					<div data-field="8" data-trap="false" class="board__square"><p>8</p></div>
+					<div data-field="9" data-trap="false" class="board__square board__square--black"><p>9</p></div>
+					<div data-field="10" data-trap="false" class="board__square"><span>10</span></div>
+					<div data-field="11" data-trap="false" class="board__square board__square--black"><p>11</p></div>
+					<div data-field="12" data-trap="false" class="board__square"><p>12</p></div>
 				</div>
 				<div class="board__row">
-					<div data-field="6" class="board__square">6</div>
-					<div data-field="5" class="board__square board__square--black">5</div>
-					<div data-field="4" class="board__square">4</div>
-					<div data-field="3" class="board__square board__square--black">3</div>
-					<div id="square-2" data-field="2" class="board__square">2</div>
-					<div id="square-1" data-field="1" class="board__square board__square--black">
+					<div data-field="6" data-trap="false" class="board__square">6</div>
+					<div data-field="5" data-trap="false" class="board__square board__square--black">5</div>
+					<div data-field="4" data-trap="false" class="board__square">4</div>
+					<div data-field="3" data-trap="false" class="board__square board__square--black">3</div>
+					<div id="square-2" data-field="2" data-trap="false" class="board__square">2</div>
+					<div id="square-1" data-field="1" data-trap="false" class="board__square board__square--black">
 						1
 						<!--<div id="token-container"></div>-->
 					</div>
@@ -118,6 +118,52 @@
 					<div class="modal-footer">
 						<button id="btnNewGame" type="button" class="btn btn-secondary" data-dismiss="modal">New Game</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal">Continue Playing</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Rolled six Modal -->
+		<div class="modal fade" id="rolledSixModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="rolledSixModalHeader">You Rolled Six</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>
+							You can roll again since you rolled a six!
+						</p>
+					</div>
+					<div class="modal-footer">
+						
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Landed on card field -->
+		<div class="modal fade" id="cardFieldModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="cardFieldModalHeader">Card field</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p id="textCardField">
+							Text about card here!
+						</p>
+					</div>
+					<div class="modal-footer">
+						
+						<button id="closeCardModal" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
