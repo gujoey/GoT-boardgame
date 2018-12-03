@@ -290,9 +290,23 @@ $(document).ready(function() {
 		}
 	}
 	
+	//set cookie that acts a game save
+	function saveGame(){
+		let p1, p2;
+		p1= Cookies.getJSON('player-1');
+		p2 = Cookies.getJSON('player-2');
+		Cookies.set("game", {
+			playerOne: p1,
+			playerTwo:p2,
+			newGame: true
+		});
+	}
+	
+	
 	//redirect to game.html when start game button is clicked
 	$(document).on('click','#btn-start-game', function(e){
 		e.preventDefault();
+		saveGame();
 		window.location.replace("game.html");
 	});
 });
