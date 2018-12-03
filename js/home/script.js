@@ -206,107 +206,126 @@ for (let i=0; i<characters.length; i++){
 }
 
 $(document).ready(function() {
-	
-	//open tutorial modal on document ready
-    $('#tutorialModal').modal('show');
-	
-	//set player cookies
-	Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
-	Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
-	
-	//opens tutorial modal when info button is clicked
-	$("#info").click(function(){
+	let getGameStatus = Cookies.getJSON('game');
+	console.log(getGameStatus);
+	if (getGameStatus){
+		$("#gameExist").modal("show");
+	}else{
 		$('#tutorialModal').modal('show');
-	});
-
+	}
 	
-	//animate selected screen with jQuery
-	$(document).on('click','.btn', function(e){
-		e.preventDefault();
+		//open tutorial modal on document ready
 
-		let name ="#" + $(this)[0].dataset.name;
-		let open = $(this)[0].dataset.open;
 
-		if (open === "true"){
+		//$('#tutorialModal').modal('show');
+
+		//set player cookies
+		Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
+		Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
+
+		//opens tutorial modal when info button is clicked
+		$("#info").click(function(){
+			$('#tutorialModal').modal('show');
+		});
+
+
+		//animate selected screen with jQuery
+		$(document).on('click','.btn', function(e){
+			e.preventDefault();
+
+			let name ="#" + $(this)[0].dataset.name;
+			let open = $(this)[0].dataset.open;
+
+			if (open === "true"){
+				let p1, p2;
+
+				p1 = Cookies.getJSON('player-1');
+				p2 = Cookies.getJSON('player-2');
+
+				//give error message if to characters are already selected
+				if(p1.selected === true && p2.selected === true){
+					setTimeout(function(){ 
+						$('#twoSelected').modal('show');
+					}, 200);
+					return;
+				}else{
+					$(name).fadeIn(400);
+					setCharacterCookie($(this)[0].dataset.name,true);
+				}
+			}else{
+				$(name).fadeOut(400);
+				updateCharacterCookie($(this)[0].dataset.name,false);
+			}
+		});
+
+
+		//set cookie function that check wether the user selects player for user or computer
+		function setCharacterCookie(name, selected){
 			let p1, p2;
 
 			p1 = Cookies.getJSON('player-1');
 			p2 = Cookies.getJSON('player-2');
 
-			//give error message if to characters are already selected
+			if (p1.selected === false){
+				$('*[data-character="' + name + '"]')[0].innerHTML="YOU";
+				Cookies.set("player-1", {character: name, selected: selected, currentField: 1, turn: true, rolledSix: false});
+			}else{
+				$('*[data-character="' + name + '"]')[0].innerHTML="COMPUTER";
+				Cookies.set("player-2", {character: name, selected: selected, currentField: 1, turn: false, rolledSix: false});
+			}
+
+			p1 = Cookies.getJSON('player-1');
+			p2 = Cookies.getJSON('player-2');
+
+			//check if two characters are selected, and if true, show modal that prompts user to start game
 			if(p1.selected === true && p2.selected === true){
 				setTimeout(function(){ 
-					$('#twoSelected').modal('show');
-				}, 200);
-				return;
-			}else{
-				$(name).fadeIn(400);
-				setCharacterCookie($(this)[0].dataset.name,true);
+					$('#startGame').modal('show');
+				}, 400);
 			}
-		}else{
-			$(name).fadeOut(400);
-			updateCharacterCookie($(this)[0].dataset.name,false);
-		}
-	});
-
-
-	//set cookie function that check wether the user selects player for user or computer
-	function setCharacterCookie(name, selected){
-		let p1, p2;
-
-		p1 = Cookies.getJSON('player-1');
-		p2 = Cookies.getJSON('player-2');
-
-		if (p1.selected === false){
-			$('*[data-character="' + name + '"]')[0].innerHTML="YOU";
-			Cookies.set("player-1", {character: name, selected: selected, currentField: 1, turn: true, rolledSix: false});
-		}else{
-			$('*[data-character="' + name + '"]')[0].innerHTML="COMPUTER";
-			Cookies.set("player-2", {character: name, selected: selected, currentField: 1, turn: false, rolledSix: false});
 		}
 
-		p1 = Cookies.getJSON('player-1');
-		p2 = Cookies.getJSON('player-2');
+		//update cookie function that checks if the user would like to change user for him self or the computer
+		function updateCharacterCookie(name, selected){
+			let p1, p2;
 
-		//check if two characters are selected, and if true, show modal that prompts user to start game
-		if(p1.selected === true && p2.selected === true){
-			setTimeout(function(){ 
-				$('#startGame').modal('show');
-			}, 400);
+			p1 = Cookies.getJSON('player-1');
+			p2 = Cookies.getJSON('player-2');
+
+			if(p1.character === name && p1.selected===true){
+				Cookies.set("player-1", {character: "", selected: selected, currentField: 1, turn: true, rolledSix: false});
+			}else if(p2.character === name && p2.selected===true){
+				Cookies.set("player-2", {character: "", selected: selected, currentField: 1, turn: false, rolledSix: false});
+			}
 		}
-	}
 
-	//update cookie function that checks if the user would like to change user for him self or the computer
-	function updateCharacterCookie(name, selected){
-		let p1, p2;
-
-		p1 = Cookies.getJSON('player-1');
-		p2 = Cookies.getJSON('player-2');
-
-		if(p1.character === name && p1.selected===true){
-			Cookies.set("player-1", {character: "", selected: selected, currentField: 1, turn: true, rolledSix: false});
-		}else if(p2.character === name && p2.selected===true){
-			Cookies.set("player-2", {character: "", selected: selected, currentField: 1, turn: false, rolledSix: false});
+		//set cookie that acts a game save
+		function saveGame(){
+			let p1, p2;
+			p1= Cookies.getJSON('player-1');
+			p2 = Cookies.getJSON('player-2');
+			Cookies.set("game", {
+				playerOne: p1,
+				playerTwo:p2,
+				newGame: true
+			});
 		}
-	}
-	
-	//set cookie that acts a game save
-	function saveGame(){
-		let p1, p2;
-		p1= Cookies.getJSON('player-1');
-		p2 = Cookies.getJSON('player-2');
-		Cookies.set("game", {
-			playerOne: p1,
-			playerTwo:p2,
-			newGame: true
+
+		//redirect to game.html when start game button is clicked
+		$(document).on('click','#btn-start-game', function(e){
+			e.preventDefault();
+			saveGame();
+			window.location.replace("game.html");
 		});
-	}
-	
-	
-	//redirect to game.html when start game button is clicked
-	$(document).on('click','#btn-start-game', function(e){
-		e.preventDefault();
-		saveGame();
-		window.location.replace("game.html");
-	});
+		
+		/*$(document).on('click','#continueGameBtn', function(e){
+			e.preventDefault();
+			saveGame();
+			window.location.replace("game.html");
+		});*/
+		
+		//redirect user in case user is in character page, but have a game in progress
+		document.getElementById("continueGameBtn").addEventListener("click", function(){
+			window.location.replace("game.html");
+		});
 });
