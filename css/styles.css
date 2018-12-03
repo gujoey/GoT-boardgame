@@ -37,6 +37,24 @@ p {
   color: red;
 }
 
+.modal-content {
+  background-color: #484848;
+  color: #B9B9B9;
+}
+
+.modal-header {
+  border-bottom: 1px solid #B9B9B9;
+}
+
+.modal-footer {
+  border-top: 1px solid #B9B9B9;
+}
+
+button.close {
+  color: #B9B9B9;
+  text-shadow: none;
+}
+
 .vertical-nav {
   font-family: "Roboto", sans-serif;
   font-weight: 600;
