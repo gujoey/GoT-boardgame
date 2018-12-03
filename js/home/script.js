@@ -7,7 +7,7 @@ function createCard(apiRes){
 	let i, row, col, colInner, colInnerSelected, colInnerSelectedCenter;
 	let pSelected, pSelectedStrong, pSelectedStrongText, pSelectedText;
 	let pSelectedBr, pSelectedSpan, pSelectedSpanStrong, pSelectedSpanStrongText;
-	let btnSelectedChar, btnSelectedCharText;
+	let btnSelectedChar, btnSelectedCharText, selImg, selName, selImgName;
 	
 	//character variables
 	let h1, h1Text, img, name, imgName;
@@ -18,7 +18,7 @@ function createCard(apiRes){
 	//button variables
 	let btn, btnText;
 	
-	i = 0;
+	//i = 0;
 	
 	//get the row element
 	row = document.getElementById("row");
@@ -44,6 +44,7 @@ function createCard(apiRes){
 	colInnerSelectedCenter.className = "col-inner__selected--center";
 	colInnerSelected.appendChild(colInnerSelectedCenter);
 	
+	
 	//create p element and text and append to the "selected character" card inside column
 	pSelected = document.createElement("p");
 	pSelectedStrong = document.createElement("strong");
@@ -64,6 +65,16 @@ function createCard(apiRes){
 	pSelectedSpanStrong.appendChild(pSelectedSpanStrongText);
 	pSelectedSpan.appendChild(pSelectedSpanStrong);
 	pSelected.appendChild(pSelectedSpan);
+		
+	//use "replace" and "toLoweCase" to edit api name for use in getting png icon image
+	selName = apiRes[0].name;
+	selImgName = selName.replace(" ", "-").toLowerCase();
+	
+	//create lcon of character in character selected screen
+	selImg = document.createElement("img");
+	selImg.className="col-inner__img";
+	selImg.src="../img/graphics/"+selImgName+".png";
+	selImg.alt = "icon of " + name;
 	
 	//create button to"selected character" card
 	btnSelectedChar = document.createElement("button");
@@ -75,6 +86,7 @@ function createCard(apiRes){
 	btnSelectedChar.appendChild(btnSelectedCharText);
 	
 	colInnerSelectedCenter.appendChild(pSelected);
+	colInnerSelectedCenter.appendChild(selImg);
 	colInnerSelectedCenter.appendChild(btnSelectedChar);
 	
 	//create card heading
@@ -182,7 +194,7 @@ let characters = [
 	"sansa+stark",
 	"tyrion+lannister",
 	"arya+stark",
-	"joffrey+baratheon",
+	"jaime+lannister",
 	"petyr+baelish",
 	"ramsay+snow",
 	"margaery+tyrell"
