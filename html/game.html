@@ -14,6 +14,15 @@
 	</head>
 
 	<body>
+		<header>
+			<nav class="vertical-nav">
+				<a id="gameInfo" class="vertical-nav__link" href="#"><i class="fas fa-info-circle vertical-nav__icon"></i><br> Info </a>
+				<a id="quitGame" class="vertical-nav__link" href="#"><i class="fas fa-home  vertical-nav__icon"></i><br>Quit <br> Game</a>
+				<a id="restartGame" class="vertical-nav__link" href="#"><i class="fas fa-undo vertical-nav__icon"></i><br>Restart <br> Game</a>
+				<a id="saveGame" class="vertical-nav__link" href="#"><i class="fas fa-save vertical-nav__icon"></i><br>Save <br> Game</a>
+			</nav>
+		</header>
+		
 		<main>
 			<i id="info" class="fas fa-info-circle"></i>
 			<div class="board">
@@ -62,20 +71,20 @@
 				</div>
 			</div><!--board container-->
 			
-			<button id="btnSaveGame" type="button" class="btn board__btn board__btn--save-game" data-toggle="popover" title="Game Saved" data-content="Your current game session has been saved!" data-placement="top">Save Game</button>
-			<button id="btnNewGameModal" type="button" class="btn board__btn board__btn--new-game">New Game</button>
+			<!--<button id="btnSaveGame" type="button" class="btn board__btn board__btn--save-game" data-toggle="popover" title="Game Saved" data-content="Your current game session has been saved!" data-placement="top">Save Game</button>-->
+			<!--<button id="btnNewGameModal" type="button" class="btn board__btn board__btn--new-game">New Game</button>-->
 			<span id="show-dice-nr" class="board__dice-nr"></span>
 			<button type="button" id="rollDice" class="btn board__btn board__btn--dice">Roll Dice</button>
 		</main>
 		
 	
 
-		<!-- Modal Tutorial -->
-		<div class="modal fade" id="tutorialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<!-- Modal Info -->
+		<div class="modal fade" id="gameInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Welcome to A Game of Boards</h5>
+						<h5 class="modal-title" id="infoModalTitle">Welcome to A Game of Boards</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -116,7 +125,7 @@
 						</p>
 					</div>
 					<div class="modal-footer">
-						<button id="btnNewGame" type="button" class="btn btn-secondary" data-dismiss="modal">New Game</button>
+						<button id="btnNewGame" type="button" class="btn btn-secondary" data-dismiss="modal">Restart Game</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal">Continue Playing</button>
 					</div>
 				</div>
@@ -164,6 +173,58 @@
 					<div class="modal-footer">
 						
 						<button id="closeCardModal" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Modal Game Saved -->
+		<div class="modal fade" id="saveGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="saveGameModalTitle">Game Saved</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p> 
+							<strong>Your game saved been saved. </strong>
+							<br><br>
+							<small>To be honest, the save button is there just to make you feel good. We actually save the game for you after every move :)</small>
+						</p>
+					</div>
+					<div class="modal-footer">
+						
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Modal quit game -->
+		<div class="modal fade" id="quitGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="quitGameModalTitle"><span  class="bg-danger">Quit Game</span></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p> 
+							<strong><span class="red-color"> You are about to quit the game</span></strong>
+							<br><br>
+							If you quit the game, all of the game progreoss will be lost. <br><br>
+							Are you sure you want to quit the game?
+						</p>
+					</div>
+					<div class="modal-footer">
+						
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Continue Playing</button>
+						<button id="quitGameModalBtn" type="button" class="btn btn-danger" data-dismiss="modal">Quit Game</button>
 					</div>
 				</div>
 			</div>

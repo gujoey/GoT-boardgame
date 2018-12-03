@@ -209,9 +209,14 @@ $(document).ready(function() {
 	let getGameStatus = Cookies.getJSON('game');
 	console.log(getGameStatus);
 	if (getGameStatus){
-		$("#gameExist").modal("show");
+		if (getGameStatus.newGame===false){
+			$("#gameExist").modal("show");	
+		}
 	}else{
 		$('#tutorialModal').modal('show');
+		Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
+		Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
+		//newGame();
 	}
 	
 		//open tutorial modal on document ready
@@ -220,8 +225,8 @@ $(document).ready(function() {
 		//$('#tutorialModal').modal('show');
 
 		//set player cookies
-		Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
-		Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
+		//Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
+		//Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
 
 		//opens tutorial modal when info button is clicked
 		$("#info").click(function(){
@@ -323,6 +328,21 @@ $(document).ready(function() {
 			saveGame();
 			window.location.replace("game.html");
 		});*/
+	
+		$(document).on('click','#newGameBtn', function(e){
+			e.preventDefault();
+			let p1, p2;
+			
+			p1= Cookies.getJSON('player-1');
+			p2 = Cookies.getJSON('player-2');
+			p1.selected = false;
+			p2.selected = false;
+			
+			Cookies.set("player-1", p1);
+			Cookies.set("player-2", p2);
+			
+			saveGame();
+		});
 		
 		//redirect user in case user is in character page, but have a game in progress
 		document.getElementById("continueGameBtn").addEventListener("click", function(){

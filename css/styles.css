@@ -32,19 +32,46 @@ p {
   color: red;
 }
 
-.fa-info-circle {
-  font-size: 100px;
-  margin: 30px;
-  color: #fff;
+.vertical-nav {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 0%;
+  height: 1080px;
+  width: 100px;
+  background-color: #000;
+  color: #fff;
+  display: block;
 }
-.fa-info-circle:hover {
+.vertical-nav__link {
+  margin-top: 15px;
+  padding: 15px 5px 0 5px;
+  text-align: center;
+  text-decoration: none;
   color: #B9B9B9;
-  cursor: pointer;
+  display: block;
+  width: 100%;
+  min-height: 100px;
+}
+.vertical-nav__link:hover {
+  text-decoration: inherit;
+  color: #fff;
+}
+.vertical-nav__icon {
+  font-size: 50px;
 }
 
+/*.fa-info-circle{
+	font-size: 100px;
+	margin: 30px;
+	color: $white;
+	position: fixed;
+	top: 0;
+	right: 0;
+
+	&:hover{
+		color: $light-grey;
+		cursor: pointer;
+	}
+}*/
 .popover {
   top: -30px !important;
 }

@@ -366,25 +366,65 @@ document.getElementById("rollDice").addEventListener("click", function(){
 	p1.rollDice();
 });
 
-//modal new game
-document.getElementById("btnNewGameModal").addEventListener("click", function(){
+//info modal
+document.getElementById("gameInfo").addEventListener("click", function(){
+	$('#gameInfoModal').modal('show');
+});
+
+//quit game modal
+document.getElementById("quitGame").addEventListener("click", function(){
+	$('#quitGameModal').modal('show');
+});
+
+//modal restart game
+document.getElementById("restartGame").addEventListener("click", function(){
 	$('#newGameModal').modal('show');
 });
 
-//new game click event listener
+//redirect if user clicks quit game button in quit game modal
+document.getElementById("quitGameModalBtn").addEventListener("click", function(){
+	let p1, p2;
+			
+	p1= Cookies.getJSON('player-1');
+	p2 = Cookies.getJSON('player-2');
+	p1.selected = false;
+	p2.selected = false;
+
+	Cookies.set("player-1", p1);
+	Cookies.set("player-2", p2);
+	
+	Cookies.set("game", {
+				playerOne: p1,
+				playerTwo:p2,
+				newGame: true
+			});
+	
+	window.location.replace("index.html");
+});
+
+
+//restart game click event listener
 document.getElementById("btnNewGame").addEventListener("click", function(){
 	game.newGame();
 });
 
 //save game click eventlistener
-document.getElementById("btnSaveGame").addEventListener("click", function(){
+/*document.getElementById("saveGame").addEventListener("click", function(){
 	game.save();
-  	$("#btnSaveGame").popover("show");
+  	$("#btnSaveGame").popover({html:true});
 	
 	setTimeout(function(){
-		$("#btnSaveGame").popover("hide");
+		$("#btnSaveGame").popover({html:false});
 	},5000);
+});*/
+
+document.getElementById("saveGame").addEventListener("click", function(){
+	game.save();
+  	$("#saveGameModal").modal("show");
+	
 });
+
+
 
 $('#player-1').draggable({
 	snap:true,

@@ -1,0 +1,26 @@
+.vertical-nav{
+	position: fixed;
+	top:0%;
+	height: 1080px;
+	width: 100px;
+	background-color: $black;
+	color: $white;
+	display: block;
+	&__link{
+		margin-top: 15px;
+		padding:15px 5px 0 5px;
+		text-align: center;
+		text-decoration: none;
+		color: $light-grey;
+		display: block;
+		width: 100%;
+		min-height: 100px;
+		&:hover{
+			text-decoration: inherit;
+			color: $white;
+		}
+	}
+	&__icon{
+		font-size: 50px;
+	}
+}
