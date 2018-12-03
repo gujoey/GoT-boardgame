@@ -1,8 +1,11 @@
 //Game class
 class Game{
-	constructor(p1, p2){
+	constructor(p1, p2, p1Pos, p2Pos, traps){
 		this.playerOne = p1;
-		this.platerTwo = p2;
+		this.platerTwo = p2; //correct player to plater here
+		this.p1Pos = p1Pos;
+		this.p2Pos = p2Pos;
+		this.traps = traps;
 	}
 	startGame(){
 		let playerOneToken, playerTwoToken, fieldOne, traps, trapsNumber;
@@ -85,13 +88,56 @@ class Game{
 	}
 	
 	save(){
-		let p1, p2;
+		let p1, p2, traps, trapsData;
 		p1= Cookies.getJSON('player-1');
 		p2 = Cookies.getJSON('player-2');
+		trapsData=document.querySelectorAll("[data-trap='true']");
+		traps=[];
+		
+		for (let i=0; i<trapsData.length; i++){
+			traps.push(trapsData[i].dataset.field);
+		}
+		
 		Cookies.set("game", {
 			playerOne: p1,
-			playerTwo:p2
+			playerTwo:p2,
+			newGame: false,
+			traps: traps
 		});
+	}
+	
+	restore(){
+		//console.log("game is restored");
+		let playerOneToken, playerTwoToken, fieldP1Token, fieldP2Token, traps, trapsNumber;
+
+		fieldP1Token= document.querySelector(`[data-field="${this.p1Pos}"]`);
+		fieldP2Token= document.querySelector(`[data-field="${this.p2Pos}"]`);
+		
+		//create player one
+		playerOneToken = document.createElement("img");
+		playerOneToken.id="player-1";
+		playerOneToken.className="board__token";
+		playerOneToken.src="../img/graphics/"+this.playerOne+".png";
+		playerOneToken.alt="Token of character " + this.platerOne + " for player 1.";
+		fieldP1Token.appendChild(playerOneToken);
+		
+		//create player two
+		playerTwoToken = document.createElement("img");
+		playerTwoToken.id="player-2";
+		playerTwoToken.className="board__token";
+		playerTwoToken.src="../img/graphics/"+ this.platerTwo + ".png";
+		playerTwoToken.alt="Token of character " + this.platerTwo + " for player 2.";
+		fieldP2Token.appendChild(playerTwoToken);
+		
+		//get 8 random numbers and use these to populate the board with traps
+		trapsNumber=this.traps;
+		
+		for (let i=0; i<trapsNumber.length; i++){
+			let field;
+			field = document.querySelector("[data-field=\'" + trapsNumber[i] + "\']"); //change this for consitancy
+			field.dataset.trap="true";
+			field.className="board__square board__square--trap";
+		}
 	}
 	
 	//won(){}
@@ -218,23 +264,56 @@ class Character{
 				Cookies.set(player, playerObj);
 			}
 		}
-		console.log(Cookies.getJSON("player-1"));
-		console.log(Cookies.getJSON("player-2"));
+		game.save();
+		//console.log(Cookies.getJSON("player-1"));
+		//console.log(Cookies.getJSON("player-2"));
+		//console.log(Cookies.getJSON("game"));
 	}
+
 }
 
+
+
 //get selected characters from cookies and make new charaters
-let p1, p2, charOne, charTwo, game;
+let p1, p2, charOne, charTwo, game, savedGame;
 charOne = Cookies.getJSON('player-1').character;
 charTwo = Cookies.getJSON('player-2').character;
+savedGame = Cookies.getJSON('game');
 
-p1 = new Character(charOne,1);
-p2 = new Character(charTwo, 2);
 
 
 //initialize classes and start game
-game = new Game(p1.name, p2.name);
-game.startGame();
+
+p1="";
+p2="";
+
+if (savedGame.newGame===false){
+	let p1Pos, p2Pos, traps;
+	
+	p1 = new Character(savedGame.playerOne.character,1);
+	p1Pos = savedGame.playerOne.currentField;
+	
+	p2 = new Character(savedGame.playerTwo.character, 2)
+	p2Pos = savedGame.playerTwo.currentField;
+	
+	traps = savedGame.traps; 
+	
+	console.log(p1.name);
+	console.log(p2.name);
+	console.log(p1Pos);
+	console.log(p2Pos);
+	console.log(traps);
+	
+	game = new Game(p1.name, p2.name, p1Pos, p2Pos, traps);
+	game.restore();
+}else{
+	
+	p1 = new Character(charOne,1);
+	p2 = new Character(charTwo, 2);
+	
+	game = new Game(p1.name, p2.name);
+	game.startGame();
+}
 
 //choose random number funtcion
 function randomize(min, max, amt){
