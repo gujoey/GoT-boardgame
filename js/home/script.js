@@ -229,7 +229,7 @@ $(document).ready(function() {
 		//Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
 
 		//opens tutorial modal when info button is clicked
-		$("#info").click(function(){
+		$("#gameInfo").click(function(){
 			$('#tutorialModal').modal('show');
 		});
 
