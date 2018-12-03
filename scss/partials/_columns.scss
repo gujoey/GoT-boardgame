@@ -21,8 +21,10 @@
 	border: 4px $black solid;
 	padding: 15px;
 	text-align: center;
-	margin-top: 15px;
-	background-color: $light-grey-o;
+	margin-top: 30px;
+	background-color: $dark-grey-o;
+	color: $white;
+	//background-color: $light-grey-o;
 	//height: 96%;
 
 	
@@ -30,11 +32,11 @@
 		display: none;
 		padding: 15px;
 		margin: -15px;
-		background: white;
+		background: $darker-light-grey;
 		position: absolute;
 		height: 100%;
 		width: 100%;
-		opacity:0.95;
+		//opacity:0.95;
 		font-size: 2em;
 		
 		&--center{
@@ -52,9 +54,13 @@
 		}
 	}
 	
-	&__btn{
-		background-color: teal;
+	&__btn{ 
+		color: $white;
+		background-color: $lighter-dark-grey;
 		width: 100%;
+		&:hover{
+			background-color: $grey;
+		}
 	}
 	
 	&__img{
