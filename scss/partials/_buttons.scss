@@ -1,0 +1,36 @@
+.btn{
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	width: 100%;
+	&--dark-grey{
+		color: $white;
+		background-color: $lighter-dark-grey;
+		width: 100%;
+		&:hover{
+			background-color: $grey;
+		}
+	}
+	
+	&--light-grey{
+		color: $light-grey;
+		background-color: transparent;
+		border: 2px solid $light-grey;
+		max-width: 100%;
+		&:hover{
+			background-color: $light-grey;
+			color: $lighter-dark-grey;
+		}
+	}
+	
+	&--danger{
+		color: $yellow;
+		background-color: transparent;
+		border: 2px solid $red;
+		min-width: 100%;
+		&:hover{
+			background-color: $red;
+			color: $light-grey;
+		}
+	}
+}

@@ -26,8 +26,21 @@ p {
   font-family: 'Roboto', sans-serif;
   font-weight: 500; }
 
+.orange-color {
+  font-size: 20px;
+  color: orange; }
+
+.yellow-color {
+  font-size: 20px;
+  color: yellow; }
+
 .red-color {
+  font-size: 20px;
   color: red; }
+
+.green-color {
+  font-size: 20px;
+  color: green; }
 
 .modal-content {
   background-color: #484848;
@@ -43,6 +56,34 @@ button.close {
   color: #B9B9B9;
   text-shadow: none; }
 
+.btn {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%; }
+  .btn--dark-grey {
+    color: #fff;
+    background-color: #484848;
+    width: 100%; }
+    .btn--dark-grey:hover {
+      background-color: #686868; }
+  .btn--light-grey {
+    color: #B9B9B9;
+    background-color: transparent;
+    border: 2px solid #B9B9B9;
+    max-width: 100%; }
+    .btn--light-grey:hover {
+      background-color: #B9B9B9;
+      color: #484848; }
+  .btn--danger {
+    color: yellow;
+    background-color: transparent;
+    border: 2px solid red;
+    min-width: 100%; }
+    .btn--danger:hover {
+      background-color: red;
+      color: #B9B9B9; }
+
 .vertical-nav {
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
@@ -50,7 +91,7 @@ button.close {
   top: 0%;
   height: 1080px;
   width: 100px;
-  background-color: #000;
+  background-color: #181818;
   color: #fff;
   display: block; }
   .vertical-nav__link {
@@ -132,14 +173,14 @@ button.close {
     height: 150px;
     width: 150px;
     padding: 10px;
-    background-color: #fff;
+    background-color: #B9B9B9;
     display: inline-block;
     margin: 0; }
     .board__square--black {
-      background-color: #000;
+      background-color: #181818;
       color: #fff; }
     .board__square--trap {
-      background-color: teal; }
+      background-color: orange; }
   .board__token {
     width: 80%;
     vertical-align: middle;

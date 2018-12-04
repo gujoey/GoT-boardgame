@@ -12,16 +12,16 @@
 		height: 150px;
 		width: 150px;
 		padding: 10px;
-		background-color: $white;
+		background-color: $light-grey;
 		display: inline-block;
 		margin: 0;
 			
 		&--black{
-			background-color: $black;
+			background-color: $dark-grey;
 			color: $white;
 		}
 		&--trap{
-			background-color: teal;
+			background-color: $orange;
 		}
 	}
 	

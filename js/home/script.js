@@ -81,7 +81,7 @@ function createCard(apiRes){
 	btnSelectedChar.dataset.name = apiRes[0].name.replace(" ", "-").toLowerCase();
 	btnSelectedChar.dataset.open = false;
 	btnSelectedChar.type = "button";
-	btnSelectedChar.className = "btn btn-lg col-inner__btn";
+	btnSelectedChar.className = "btn btn-lg btn--light-grey";
 	btnSelectedCharText = document.createTextNode("Select someone else");
 	btnSelectedChar.appendChild(btnSelectedCharText);
 	
@@ -161,7 +161,7 @@ function createCard(apiRes){
 	//create select character button
 	btn = document.createElement("button");
 	btn.type = "button";
-	btn.className = "btn btn-lg col-inner__btn";
+	btn.className = "btn btn-lg btn--light-grey";
 	btn.id="btn-select-"+cardsI;
 	btn.dataset.name = imgName;
 	btn.dataset.open = true;
