@@ -206,14 +206,14 @@ for (let i=0; i<characters.length; i++){
 }
 
 $(document).ready(function() {
-	let getGameStatus = Cookies.getJSON('game');
-	console.log(getGameStatus);
+	let getGameStatus = Cookies.getJSON("game");
+
 	if (getGameStatus){
 		if (getGameStatus.newGame===false){
 			$("#gameExist").modal("show");	
 		}
 	}else{
-		$('#tutorialModal').modal('show');
+		$("#tutorialModal").modal("show");
 		Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
 		Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
 		//newGame();
@@ -241,11 +241,11 @@ $(document).ready(function() {
 			let name ="#" + $(this)[0].dataset.name;
 			let open = $(this)[0].dataset.open;
 
-			if (open === "true"){
+			if (open === "true" || open === true){
 				let p1, p2;
 
-				p1 = Cookies.getJSON('player-1');
-				p2 = Cookies.getJSON('player-2');
+				p1 = Cookies.getJSON("player-1");
+				p2 = Cookies.getJSON("player-2");
 
 				//give error message if to characters are already selected
 				if(p1.selected === true && p2.selected === true){

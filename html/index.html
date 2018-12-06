@@ -18,16 +18,11 @@
 		<header>
 			<nav class="vertical-nav">
 				<a id="gameInfo" class="vertical-nav__link" href="#"><i class="fas fa-info-circle vertical-nav__icon"></i><br> Info </a>
-				<!--<a id="quitGame" class="vertical-nav__link" href="#"><i class="fas fa-home  vertical-nav__icon"></i><br>Quit <br> Game</a>
-				<a id="restartGame" class="vertical-nav__link" href="#"><i class="fas fa-undo vertical-nav__icon"></i><br>Restart <br> Game</a>
-				<a id="saveGame" class="vertical-nav__link" href="#"><i class="fas fa-save vertical-nav__icon"></i><br>Save <br> Game</a>-->
 			</nav>
 		</header>
 		
 		<main>
-			<i id="info" class="fas fa-info-circle"></i>
 			<div class="container">
-				<!--<h1 class="main-heading"><strong>A Game of Boards</strong></h1>-->
 				<div id="row" class="row"></div>
 			</div><!--container-->
 		</main>
@@ -35,11 +30,11 @@
 	
 
 		<!-- Modal Tutorial -->
-		<div class="modal fade" id="tutorialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal fade" id="tutorialModal" tabindex="-1" role="dialog" aria-labelledby="tutorialModalHeader" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Welcome to A Game of Boards</h5>
+						<h2 class="modal-title" id="tutorialModalHeader">Welcome to A Game of Boards</h2>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -50,9 +45,9 @@
 							A Game of Boards is an online board game that is a mix between the tv show Game of Thrones and the board game Snakes and Ladders.<br><br>
 							<strong>How to play</strong><br>
 							First you select a character <strong>-token-</strong> for your self. After you have selected your character, you select the character <strong>-token-</strong> for the computer.<br><br>
-							<strong>Cookies</strong><br>
-							This game uses cookies, so please make sure that your web browser allows the use of cookies.<br><br>
-							<strong>Good luck and have fun!</strong>
+							
+							After two characters are selected, you get to continue to the board. <br><br>
+							Good luck and have fun!
 						</p>
 					</div>
 					<div class="modal-footer">
@@ -64,11 +59,11 @@
 		</div>
 		
 		<!-- Modal Start Game -->
-		<div class="modal fade" id="startGame" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal fade" id="startGame" tabindex="-1" role="dialog" aria-labelledby="startGameTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="startGameTitle">Are you ready to start game?</h5>
+						<h2 class="modal-title" id="startGameTitle">Are you ready to start game?</h2>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -84,7 +79,7 @@
 					</div>
 					<div class="modal-footer">
 						<button id="btn-change-char" type="button" class="btn btn--light-grey" data-dismiss="modal">Change characters</button>
-						<button id="btn-start-game" type="button" class="btn btn--light-grey" data-dismiss="modal">Start</button>
+						<button id="btn-start-game" type="button" class="btn btn--light-grey" data-dismiss="modal">Start <i class="fas fa-play green-color"></i></button>
 					</div>
 				</div>
 			</div>
@@ -92,11 +87,11 @@
 		
 		
 		<!-- Modal Error -->
-		<div class="modal fade" id="twoSelected" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal fade" id="twoSelected" tabindex="-1" role="dialog" aria-labelledby="twoSelectedTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="twoSelectedTitle">Two characters already seleceted <i class="fas fa-exclamation-circle red-color"></i></h5>
+						<h2 class="modal-title" id="twoSelectedTitle">Two characters already seleceted <i class="fas fa-exclamation-circle red-color"></i></h2>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -114,23 +109,24 @@
 		</div>
 		
 		<!-- Modal Current Game Exist -->
-		<div class="modal fade" id="gameExist" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal fade" id="gameExist" tabindex="-1" role="dialog" aria-labelledby="gameExistTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="gameExistTitle"><span class="bg-warning">Game in progress <i class="fas fa-exclamation-circle"></i></span></h5>
+						<h2 class="modal-title" id="gameExistTitle">Game in progress <i class="fas fa-exclamation-circle orange-color"></i></h2>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<p>
-							You have a game that you haven't finished. Do you want to continue playing that game?
+							You have a game that you haven't finished. Do you want to continue playing that game? <br><br>
+							Please note that by clicking the "start new game" button, all current game progress will be lost. 
 						</p>
 					</div>
 					<div class="modal-footer">
-						<button id="newGameBtn" type="button" class="btn btn--light-grey" data-dismiss="modal">Start new game</button>
-						<button id="continueGameBtn" type="button" class="btn btn--light-grey" data-dismiss="modal">Continue current game</button>
+						<button id="newGameBtn" type="button" class="btn btn--light-grey" data-dismiss="modal">Start new game <i class="fas fa-exclamation-circle orange-color"></i></button>
+						<button id="continueGameBtn" type="button" class="btn btn--light-grey" data-dismiss="modal">Continue current game <i class="fas fa-play green-color"></i></button>
 					</div>
 				</div>
 			</div>

@@ -2,7 +2,7 @@
 class Game{
 	constructor(p1, p2, p1Pos, p2Pos, traps){
 		this.playerOne = p1;
-		this.platerTwo = p2; //correct player to plater here
+		this.playerTwo = p2; //correct player to plater here
 		this.p1Pos = p1Pos;
 		this.p2Pos = p2Pos;
 		this.traps = traps;
@@ -17,15 +17,15 @@ class Game{
 		playerOneToken.id="player-1";
 		playerOneToken.className="board__token board__token--two-tokens";
 		playerOneToken.src="../img/graphics/"+this.playerOne+".png";
-		playerOneToken.alt="Token of character " + this.platerOne + " for player 1.";
+		playerOneToken.alt="Token of character " + this.playerOne + " for player 1.";
 		fieldOne.appendChild(playerOneToken);
 		
 		//create player two
 		playerTwoToken = document.createElement("img");
 		playerTwoToken.id="player-2";
 		playerTwoToken.className="board__token board__token--two-tokens";
-		playerTwoToken.src="../img/graphics/"+ this.platerTwo + ".png";
-		playerTwoToken.alt="Token of character " + this.platerTwo + " for player 2.";
+		playerTwoToken.src="../img/graphics/"+ this.playerTwo + ".png";
+		playerTwoToken.alt="Token of character " + this.playerTwo + " for player 2.";
 		fieldOne.appendChild(playerTwoToken);
 		
 		//get 8 random numbers and use these to populate the board with traps
@@ -38,7 +38,11 @@ class Game{
 			field.className="board__square board__square--trap";
 		}
 		
+		this.setOverview();
 		this.save();
+		
+		//open info modal
+		$("#gameInfoModal").modal("show");
 	}
 	
 	newGame(){
@@ -63,8 +67,8 @@ class Game{
 		console.log(p2)
 		Cookies.set("player-2", p2);
 		
-		console.log(p1);
-		console.log(p2);
+		//console.log(p1);
+		//console.log(p2);
 		
 		//get all traps based on dataset name
 		traps=document.querySelectorAll("[data-trap='true']");
@@ -83,8 +87,10 @@ class Game{
 		document.getElementById("player-1").remove();
 		document.getElementById("player-2").remove();
 		
-		//call startGame() function to start a new game
+		//call setOverview() & startGame() function to start a new game
+		this.setOverview();
 		this.startGame();
+		
 	}
 	
 	save(){
@@ -118,15 +124,15 @@ class Game{
 		playerOneToken.id="player-1";
 		playerOneToken.className="board__token";
 		playerOneToken.src="../img/graphics/"+this.playerOne+".png";
-		playerOneToken.alt="Token of character " + this.platerOne + " for player 1.";
+		playerOneToken.alt="Token of character " + this.playerOne + " for player 1.";
 		fieldP1Token.appendChild(playerOneToken);
 		
 		//create player two
 		playerTwoToken = document.createElement("img");
 		playerTwoToken.id="player-2";
 		playerTwoToken.className="board__token";
-		playerTwoToken.src="../img/graphics/"+ this.platerTwo + ".png";
-		playerTwoToken.alt="Token of character " + this.platerTwo + " for player 2.";
+		playerTwoToken.src="../img/graphics/"+ this.playerTwo + ".png";
+		playerTwoToken.alt="Token of character " + this.playerTwo + " for player 2.";
 		fieldP2Token.appendChild(playerTwoToken);
 		
 		//get 8 random numbers and use these to populate the board with traps
@@ -138,6 +144,41 @@ class Game{
 			field.dataset.trap="true";
 			field.className="board__square board__square--trap";
 		}
+		
+		this.setOverview();
+	}
+	
+	setOverview(turn){
+		let overviewP1, imgP1, overviewP2, imgP2;
+		
+		document.getElementById("turn").innerHTML="your turn";
+		
+		document.getElementById("p1-char").innerHTML=this.playerOne.replace("-", "<br>");
+		overviewP1=document.getElementById("overviewP1");
+
+		if(document.getElementById("p1OverviewToken")){
+			document.getElementById("p1OverviewToken").remove();
+		}
+		imgP1 = document.createElement("img");
+		imgP1.className="overview__img";
+		imgP1.id="p1OverviewToken"
+		imgP1.src="../img/graphics/"+ this.playerOne + ".png";
+		imgP1.alt="Token of character " + this.playerOne + " for player 1.";
+		overviewP1.appendChild(imgP1);
+		
+		document.getElementById("p2-char").innerHTML=this.playerTwo.replace("-", "<br>");
+		overviewP2=document.getElementById("oveviewP2");
+		
+		if(document.getElementById("p2OverviewToken")){
+			document.getElementById("p2OverviewToken").remove();
+		}
+		
+		imgP2 = document.createElement("img");
+		imgP2.className="overview__img";
+		imgP2.id="p2OverviewToken";
+		imgP2.src="../img/graphics/"+ this.playerTwo + ".png";
+		imgP2.alt="Token of character " + this.playerTwo + " for player 2.";
+		overviewP2.appendChild(imgP2);
 	}
 	
 	//won(){}
@@ -222,7 +263,7 @@ class Character{
 			$("#cardFieldModal").modal("show");
 			playerObj = Cookies.getJSON(player);
 			playerObj.currentField=card.moveToField;
-			console.log(playerObj);
+			//console.log(playerObj);
 			Cookies.set(player, playerObj);
 			
 			$("#closeCardModal").click(function(){
@@ -251,6 +292,11 @@ class Character{
 
 				playerObjTwo.turn= true;
 				Cookies.set("player-2", playerObjTwo);
+				
+				document.getElementById("turn").innerHTML="computers turn";
+				document.getElementById("p1-turn").style.display="none";
+				document.getElementById("p2-turn").style.display="block";
+				
 				setTimeout(function(){
 					p2.rollDice();
 				}, 2000);
@@ -262,6 +308,10 @@ class Character{
 				playerObj = Cookies.getJSON(player);
 				playerObj.turn=true;
 				Cookies.set(player, playerObj);
+				
+				document.getElementById("turn").innerHTML="your turn";
+				document.getElementById("p1-turn").style.display="block";
+				document.getElementById("p2-turn").style.display="none";
 			}
 		}
 		game.save();
@@ -283,7 +333,6 @@ savedGame = Cookies.getJSON('game');
 
 
 //initialize classes and start game
-
 p1="";
 p2="";
 
@@ -403,6 +452,8 @@ document.getElementById("quitGameModalBtn").addEventListener("click", function()
 });
 
 
+
+
 //restart game click event listener
 document.getElementById("btnNewGame").addEventListener("click", function(){
 	game.newGame();
@@ -424,9 +475,8 @@ document.getElementById("saveGame").addEventListener("click", function(){
 	
 });
 
-
-
+/*
 $('#player-1').draggable({
 	snap:true,
 	cursor: "move"
-});
+});*/
