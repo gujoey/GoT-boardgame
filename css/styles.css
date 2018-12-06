@@ -31,6 +31,11 @@ p {
   font-family: "Raleway", sans-serif;
 }
 
+.navbar-brand {
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 25px;
+}
+
 .main-heading {
   margin-top: 30px;
   color: #fff;
@@ -117,6 +122,10 @@ button.close {
   color: #B9B9B9;
 }
 
+#navigation {
+  display: none;
+}
+
 .vertical-nav {
   z-index: 50;
   font-family: "Roboto", sans-serif;
@@ -147,19 +156,41 @@ button.close {
   font-size: 50px;
 }
 
-/*.fa-info-circle{
-	font-size: 100px;
-	margin: 30px;
-	color: $white;
-	position: fixed;
-	top: 0;
-	right: 0;
+@media screen and (max-width: 1350px) {
+  .vertical-nav {
+    display: none;
+  }
 
-	&:hover{
-		color: $light-grey;
-		cursor: pointer;
-	}
-}*/
+  #navigation {
+    display: flex;
+    background-color: #181818 !important;
+    color: #fff !important;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .navbar-brand {
+    color: #B9B9B9 !important;
+  }
+
+  .nav-link {
+    font-size: 30px;
+    color: #B9B9B9 !important;
+  }
+  .nav-link:hover {
+    color: #fff !important;
+  }
+  .nav-link .fas {
+    font-size: 30px;
+  }
+
+  .navbar-toggler {
+    border-color: transparent;
+  }
+
+  .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(185,185,185)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+}
 .col-inner {
   position: relative;
   border: 4px #000 solid;
@@ -168,6 +199,11 @@ button.close {
   margin-top: 30px;
   background-color: rgba(24, 24, 24, 0.9);
   color: #fff;
+}
+@media screen and (max-width: 992px) {
+  .col-inner {
+    margin-top: 15px;
+  }
 }
 .col-inner__selected {
   display: none;

@@ -229,10 +229,16 @@ $(document).ready(function() {
 		//Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
 
 		//opens tutorial modal when info button is clicked
-		$("#gameInfo").click(function(){
+		$("#gameInfo").click(function(e){
+			e.preventDefault();
 			$('#tutorialModal').modal('show');
 		});
 
+		//opens tutorial modal when collapsed info button is clicked
+		$("#collapsedNav").click(function(e){
+			e.preventDefault();
+			$('#tutorialModal').modal('show');
+		});
 
 		//animate selected screen with jQuery
 		$(document).on('click','.btn', function(e){
@@ -322,13 +328,7 @@ $(document).ready(function() {
 			saveGame();
 			window.location.replace("game.html");
 		});
-		
-		/*$(document).on('click','#continueGameBtn', function(e){
-			e.preventDefault();
-			saveGame();
-			window.location.replace("game.html");
-		});*/
-	
+
 		$(document).on('click','#newGameBtn', function(e){
 			e.preventDefault();
 			let p1, p2;
@@ -348,4 +348,6 @@ $(document).ready(function() {
 		document.getElementById("continueGameBtn").addEventListener("click", function(){
 			window.location.replace("game.html");
 		});
+	
+		
 });

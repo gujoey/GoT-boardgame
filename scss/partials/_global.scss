@@ -1,6 +1,5 @@
 body{
 	position: relative;
-	//background-color: $grey;
 	background-image: url("../img/photos/forest-1.jpg");
 }
 
@@ -29,6 +28,11 @@ button{
 
 p{
 	font-family: $p-font; 
+}
+
+.navbar-brand{
+	font-family: $h1-font;
+	font-size: 25px;
 }
 
 .main-heading{
