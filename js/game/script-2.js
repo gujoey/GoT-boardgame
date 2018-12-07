@@ -218,14 +218,19 @@ class Character{
 		if (field>=30){
 			field=30;
 		}
+		
+		this.moveToken(player, Number(playerObj.currentField), field);
+		
 		playerObj.currentField=field;
 		Cookies.set(player, playerObj);
 		
 		playerOne =Cookies.getJSON("player-1");
 		playerTwo =Cookies.getJSON("player-2");
 		
+		/*-----------MOVE-TOKEN-FUNCTION-HERE---------------*/
+
 		
-		setTimeout(function(){
+		/*	
 			token = document.getElementById(player);
 			token.className="board__token";
 			newField = document.querySelector(`[data-field=\"${field}\"]`);
@@ -241,8 +246,12 @@ class Character{
 			
 			//move token on board
 			newField.appendChild(token);
+		*/	
 		
+		/*---------------MOVE TOKEN FUNCTION STOPS HERE-----------------*/	
+			
 		//check if player landed on trap
+		newField = document.querySelector(`[data-field=\"${field}\"]`);
 		if (newField.dataset.trap==="true" || newField.dataset.trap==="true"){
 			let card = getCard();
 			console.log(card);
@@ -261,13 +270,11 @@ class Character{
 			$("#closeCardModal").click(function(){
 				setTimeout(function(){
 					newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-					newField.appendChild(token);
+					//newField.appendChild(token);
 				},500);
 			});
 			
 		}
-			
-		}, 1000);
 		
 		if (num[0]===6){
 			playerObj.rolledSix=true;
@@ -312,9 +319,45 @@ class Character{
 		}
 		game.save();
 	}
+	
+	moveToken(player, currentField, newField){
+		let token, moves, playerOne, playerTwo;
+		
+		moves = newField-currentField;
+		//newField = document.querySelector(`[data-field=\"${field}\"]`);
+
+		for (let i = 0; i<moves; i++){
+			setTimeout(function(){
+				let field;
+				field=currentField+i+1;
+				token = document.getElementById(player);
+				token.className="board__token";
+				document.querySelector(`[data-field=\"${field}\"]`).appendChild(token);
+			}, 1000 * i);
+		}
+		
+		function move(field){
+			token = document.getElementById(player);
+			token.className="board__token";
+			document.querySelector(`[data-field=\"${field}\"]`).appendChild(token);
+		}
+		
+		playerOne =Cookies.getJSON("player-1");
+		playerTwo =Cookies.getJSON("player-2");
+		
+		//if players are on the same feild, add board__token--two-tokens class, else use only board__token class
+		if (playerOne.currentField === playerTwo.currentField){
+				document.getElementById("player-1").className = "board__token board__token--two-tokens";
+				document.getElementById("player-2").className = "board__token board__token--two-tokens";
+		}else{
+				document.getElementById("player-1").className = "board__token";
+				document.getElementById("player-2").className = "board__token";
+		}
+
+		//move token on board
+		//newField.appendChild(token)
+	}
 }
-
-
 
 //get selected characters from cookies and make new charaters
 let p1, p2, charOne, charTwo, game, savedGame;
