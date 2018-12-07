@@ -52,23 +52,15 @@ class Game{
 		p1= Cookies.getJSON('player-1');
 		p2 = Cookies.getJSON('player-2');
 		
-		//console.log(p1);
-		//console.log(p2);
-		
 		p1.currentField=1;
 		p1.rolledSix=false;
 		p1.turn = true;
-		console.log(p1)
 		Cookies.set("player-1", p1);
 		
 		p2.currentField=1;
 		p2.rolledSix=false;
 		p2.turn = false;
-		console.log(p2)
 		Cookies.set("player-2", p2);
-		
-		//console.log(p1);
-		//console.log(p2);
 		
 		//get all traps based on dataset name
 		traps=document.querySelectorAll("[data-trap='true']");
@@ -194,6 +186,7 @@ class Character{
 	name(){
 		return this.name;
 	}
+	
 	rollDice(){
 		let num, diceNr, player,  playerObj, playerOne, playerTwo, field, fieldPosition, token, newField;
 		num = randomize(1,7,1);
@@ -201,11 +194,20 @@ class Character{
 		player ="player-"+this.playerNr;
 		playerObj = Cookies.getJSON(player);
 		
+		if (player==="player-1"){
+			document.getElementById("rollDice").disabled = true;
+		}else{
+			document.getElementById("rollDice").disabled = false;
+		}
+		
 		if (num[0]===6){
 			playerObj.rolledSix=true;
 			Cookies.set(player, playerObj);
+			if (player==="player-1"){
+				document.getElementById("rollDice").disabled = false;
+			}
+			
 		}
-		
 		
 		diceNr = document.getElementById("show-dice-nr");
 		diceNr.innerHTML=num[0];
@@ -222,35 +224,26 @@ class Character{
 		playerOne =Cookies.getJSON("player-1");
 		playerTwo =Cookies.getJSON("player-2");
 		
-		//fieldPosition=document.querySelector(`[data-field=\"${field}\"]`);
-		//console.log(fieldPosition);
-		//console.log(fieldPosition.left);
 		
-		
-		token = document.getElementById(player);
-		token.className="board__token";
-		newField = document.querySelector(`[data-field=\"${field}\"]`);
-		
-		if (playerOne.currentField === playerTwo.currentField){
-				document.getElementById("player-1").className = "board__token board__token--two-tokens";
-				document.getElementById("player-2").className = "board__token board__token--two-tokens";
-		
-		}
-		/*		
-		console.log(newField);
-		console.log(newField.getBoundingClientRect());
-		console.log(player);*/
-		/*
-		$("#player-1").animate({
-			position: "relative",
-			right: newField.getBoundingClientRect().right,//newField.getBoundingClientRect().left,
-			bottom: newField.getBoundingClientRect().bottom//newField.getBoundingClientRect().top
-		},5000);*/
-		
-		newField.appendChild(token);
+		setTimeout(function(){
+			token = document.getElementById(player);
+			token.className="board__token";
+			newField = document.querySelector(`[data-field=\"${field}\"]`);
+			
+			//if players are on the same feild, add board__token--two-tokens class, else use only board__token class
+			if (playerOne.currentField === playerTwo.currentField){
+					document.getElementById("player-1").className = "board__token board__token--two-tokens";
+					document.getElementById("player-2").className = "board__token board__token--two-tokens";
+			}else{
+					document.getElementById("player-1").className = "board__token";
+					document.getElementById("player-2").className = "board__token";
+			}
+			
+			//move token on board
+			newField.appendChild(token);
 		
 		//check if player landed on trap
-		if (newField.dataset.trap===true || newField.dataset.trap==="true"){
+		if (newField.dataset.trap==="true" || newField.dataset.trap==="true"){
 			let card = getCard();
 			console.log(card);
 			if (card.moveToField<field){
@@ -263,7 +256,6 @@ class Character{
 			$("#cardFieldModal").modal("show");
 			playerObj = Cookies.getJSON(player);
 			playerObj.currentField=card.moveToField;
-			//console.log(playerObj);
 			Cookies.set(player, playerObj);
 			
 			$("#closeCardModal").click(function(){
@@ -274,6 +266,8 @@ class Character{
 			});
 			
 		}
+			
+		}, 1000);
 		
 		if (num[0]===6){
 			playerObj.rolledSix=true;
@@ -283,41 +277,40 @@ class Character{
 			},1000);
 			
 		}else{
-			if (player === "player-1"){
-				let playerObjTwo = Cookies.getJSON("player-2")
+			setTimeout(function(){
+				if (player === "player-1"){
+					let playerObjTwo = Cookies.getJSON("player-2")
 
-				playerObj = Cookies.getJSON(player);
-				playerObj.turn=false;
-				Cookies.set(player, playerObj);
+					playerObj = Cookies.getJSON(player);
+					playerObj.turn=false;
+					Cookies.set(player, playerObj);
 
-				playerObjTwo.turn= true;
-				Cookies.set("player-2", playerObjTwo);
-				
-				document.getElementById("turn").innerHTML="computers turn";
-				document.getElementById("p1-turn").style.display="none";
-				document.getElementById("p2-turn").style.display="block";
-				
-				setTimeout(function(){
-					p2.rollDice();
-				}, 2000);
-			}else{
-				let playerObjTwo = Cookies.getJSON("player-2");
-				playerObjTwo.turn=false;
-				Cookies.set("player-2", playerObjTwo);
+					playerObjTwo.turn= true;
+					Cookies.set("player-2", playerObjTwo);
 
-				playerObj = Cookies.getJSON(player);
-				playerObj.turn=true;
-				Cookies.set(player, playerObj);
-				
-				document.getElementById("turn").innerHTML="your turn";
-				document.getElementById("p1-turn").style.display="block";
-				document.getElementById("p2-turn").style.display="none";
-			}
+					document.getElementById("turn").innerHTML="computers turn";
+					document.getElementById("p1-turn").style.display="none";
+					document.getElementById("p2-turn").style.display="block";
+
+					setTimeout(function(){
+						p2.rollDice();
+					}, 3000);
+				}else{
+					let playerObjTwo = Cookies.getJSON("player-2");
+					playerObjTwo.turn=false;
+					Cookies.set("player-2", playerObjTwo);
+
+					playerObj = Cookies.getJSON(player);
+					playerObj.turn=true;
+					Cookies.set(player, playerObj);
+
+					document.getElementById("turn").innerHTML="your turn";
+					document.getElementById("p1-turn").style.display="block";
+					document.getElementById("p2-turn").style.display="none";
+				}
+			}, 1500);
 		}
 		game.save();
-		//console.log(Cookies.getJSON("player-1"));
-		//console.log(Cookies.getJSON("player-2"));
-		//console.log(Cookies.getJSON("game"));
 	}
 
 }
@@ -346,12 +339,6 @@ if (savedGame.newGame===false){
 	p2Pos = savedGame.playerTwo.currentField;
 	
 	traps = savedGame.traps; 
-	
-	console.log(p1.name);
-	console.log(p2.name);
-	console.log(p1Pos);
-	console.log(p2Pos);
-	console.log(traps);
 	
 	game = new Game(p1.name, p2.name, p1Pos, p2Pos, traps);
 	game.restore();
@@ -452,31 +439,13 @@ document.getElementById("quitGameModalBtn").addEventListener("click", function()
 });
 
 
-
-
 //restart game click event listener
 document.getElementById("btnNewGame").addEventListener("click", function(){
 	game.newGame();
 });
-
-//save game click eventlistener
-/*document.getElementById("saveGame").addEventListener("click", function(){
-	game.save();
-  	$("#btnSaveGame").popover({html:true});
-	
-	setTimeout(function(){
-		$("#btnSaveGame").popover({html:false});
-	},5000);
-});*/
 
 document.getElementById("saveGame").addEventListener("click", function(){
 	game.save();
   	$("#saveGameModal").modal("show");
 	
 });
-
-/*
-$('#player-1').draggable({
-	snap:true,
-	cursor: "move"
-});*/
