@@ -98,6 +98,7 @@
 					<span id="p2-turn" class="overview__dice-icon-p2"><i class="fas fa-dice"></i></span>
 					<span id="show-dice-nr" class="overview__dice-nr"></span>
 					<button type="button" id="rollDice" class="btn btn--light-grey overview__dice-btn">Roll Dice</button>
+					<button type="button" id="rollDiceComputer" class="btn btn--light-grey overview__dice-btn-comp">Roll Comp</button>
 				</div>
 			</div>
 		</main>
@@ -170,7 +171,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<p>
+						<p id="rolledSixModalText">
 							You can roll again since you rolled a six!
 						</p>
 					</div>
@@ -278,6 +279,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 				
 		<!--Script-->
-		<script src="../js/game/script-2.js"></script>
+		<script type="text/javascript" src="../js/game/script-2.js"></script>
 	</body>
 </html>

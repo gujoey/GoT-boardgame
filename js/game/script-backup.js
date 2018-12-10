@@ -28,9 +28,8 @@ class Game{
 		playerTwoToken.alt="Token of character " + this.playerTwo + " for player 2.";
 		fieldOne.appendChild(playerTwoToken);
 		
-		//get 8 random numbers between 2 and 29 and use these to populate the board with traps
-		//make sure that the funtction doesnt return two equal numbers
-		trapsNumber=randomize(2,30,5);
+		//get 8 random numbers and use these to populate the board with traps
+		trapsNumber=randomize(2,30,8);
 		
 		for (let i=0; i<trapsNumber.length; i++){
 			let field;
@@ -177,8 +176,6 @@ class Game{
 	//won(){}
 }
 
-
-
 //Character Class
 class Character{
 	constructor(name, playerNr){
@@ -192,22 +189,24 @@ class Character{
 	
 	rollDice(){
 		let num, diceNr, player,  playerObj, playerOne, playerTwo, field, fieldPosition, token, newField;
-		
-		document.getElementById("rollDice").disabled = true;
-		
 		num = randomize(1,7,1);
 		
-		//check if player rolled six
 		player ="player-"+this.playerNr;
 		playerObj = Cookies.getJSON(player);
 		
-		/*if (player === "player-2"){
-			clearInterval(p2Turn);
-		}*/
+		if (player==="player-1"){
+			document.getElementById("rollDice").disabled = true;
+		}else{
+			document.getElementById("rollDice").disabled = false;
+		}
 		
 		if (num[0]===6){
 			playerObj.rolledSix=true;
 			Cookies.set(player, playerObj);
+			if (player==="player-1"){
+				document.getElementById("rollDice").disabled = false;
+			}
+			
 		}
 		
 		diceNr = document.getElementById("show-dice-nr");
@@ -217,196 +216,174 @@ class Character{
 		field = Number(playerObj.currentField);
 		field += num[0];
 		if (field>=30){
-			field=30; 
-			//add won function here
+			field=30;
 		}
 		
 		this.moveToken(player, Number(playerObj.currentField), field);
+		
+		playerObj.currentField=field;
+		Cookies.set(player, playerObj);
+		
+		playerOne =Cookies.getJSON("player-1");
+		playerTwo =Cookies.getJSON("player-2");
+		
+		/*-----------MOVE-TOKEN-FUNCTION-HERE---------------*/
+
+		
+		/*	
+			token = document.getElementById(player);
+			token.className="board__token";
+			newField = document.querySelector(`[data-field=\"${field}\"]`);
+			
+			//if players are on the same feild, add board__token--two-tokens class, else use only board__token class
+			if (playerOne.currentField === playerTwo.currentField){
+					document.getElementById("player-1").className = "board__token board__token--two-tokens";
+					document.getElementById("player-2").className = "board__token board__token--two-tokens";
+			}else{
+					document.getElementById("player-1").className = "board__token";
+					document.getElementById("player-2").className = "board__token";
+			}
+			
+			//move token on board
+			newField.appendChild(token);
+		*/	
+		
+		/*---------------MOVE TOKEN FUNCTION STOPS HERE-----------------*/	
+			
+		
+		/*--------------------TRAP FUNCTION STARTS HERE----------------------*/
+		//check if player landed on trap
+		newField = document.querySelector(`[data-field=\"${field}\"]`);
+		if (newField.dataset.trap==="true" || newField.dataset.trap===true){
+			this.trap(field, player, token);
+			
+			/*let card = getCard();
+			console.log(card);
+			if (card.moveToField<field){
+				document.getElementById("textCardField").innerHTML=card.textBackWard;
+			}else if(card.moveToField===field){
+				document.getElementById("textCardField").innerHTML=card.textCurrent;
+			}else if(card.moveToField>field){
+				document.getElementById("textCardField").innerHTML=card.textForward;
+			}
+			$("#cardFieldModal").modal("show");
+			playerObj = Cookies.getJSON(player);
+			playerObj.currentField=card.moveToField;
+			Cookies.set(player, playerObj);
+			
+			$("#closeCardModal").click(function(){
+				setTimeout(function(){
+					newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+					//newField.appendChild(token);
+				},500);
+			});*/
+		}
+		
+		/*------------------------TRAP FUNCTION STOPS HERE------------------------*/
+		
+		if (num[0]===6){
+			playerObj.rolledSix=true;
+			Cookies.set(player, playerObj);
+			setTimeout(function(){
+				$("#rolledSixModal").modal("show");
+			},1000);
+			
+		}else{
+			setTimeout(function(){
+				if (player === "player-1"){
+					let playerObjTwo = Cookies.getJSON("player-2")
+
+					playerObj = Cookies.getJSON(player);
+					playerObj.turn=false;
+					Cookies.set(player, playerObj);
+
+					playerObjTwo.turn= true;
+					Cookies.set("player-2", playerObjTwo);
+
+					document.getElementById("turn").innerHTML="computers turn";
+					document.getElementById("p1-turn").style.display="none";
+					document.getElementById("p2-turn").style.display="block";
+
+					setTimeout(function(){
+						p2.rollDice();
+					}, 3000);
+				}else{
+					let playerObjTwo = Cookies.getJSON("player-2");
+					playerObjTwo.turn=false;
+					Cookies.set("player-2", playerObjTwo);
+
+					playerObj = Cookies.getJSON(player);
+					playerObj.turn=true;
+					Cookies.set(player, playerObj);
+
+					document.getElementById("turn").innerHTML="your turn";
+					document.getElementById("p1-turn").style.display="block";
+					document.getElementById("p2-turn").style.display="none";
+				}
+			}, 1500);
+		}
 		game.save();
 	}
 	
 	moveToken(player, currentField, newField){
-		let token, moves, playerOne, playerTwo, newFieldBoard;
+		let token, moves, playerOne, playerTwo;
 		
 		moves = newField-currentField;
+		//newField = document.querySelector(`[data-field=\"${field}\"]`);
 
 		for (let i = 0; i<moves; i++){
 			setTimeout(function(){
 				let field;
 				field=currentField+i+1;
 				token = document.getElementById(player);
-				//token.className="board__token";
+				token.className="board__token";
 				document.querySelector(`[data-field=\"${field}\"]`).appendChild(token);
-				
-				if (player === "player-1"){
-					let playerOne = Cookies.getJSON("player-1");
-					let playerTwo = Cookies.getJSON("player-2");
-					
-					if (field === Number(playerTwo.currentField)){
-						let p1, p2;
-						p1 = document.getElementById("player-1");//.className = "board__token board__token--two-tokens";
-						p1.className = "board__token board__token--two-tokens";
-						
-						p2 = document.getElementById("player-2");//.className = "board__token board__token--two-tokens";
-						p2.className = "board__token board__token--two-tokens";
-					}else{
-						document.getElementById("player-1").className = "board__token";
-						document.getElementById("player-2").className = "board__token";
-					}
-					
-					playerOne.currentField = field;
-					Cookies.set("player-1", playerOne);
-					
-				}else if(player === "player-2"){
-					let playerOne = Cookies.getJSON("player-1");
-					let playerTwo = Cookies.getJSON("player-2");
-					if (field === Number(playerOne.currentField)){
-						let p1, p2;
-						p1 = document.getElementById("player-1");//.className = "board__token board__token--two-tokens";
-						p1.className = "board__token board__token--two-tokens";
-
-						p2 = document.getElementById("player-2");//.className = "board__token board__token--two-tokens";
-						p2.className = "board__token board__token--two-tokens";
-					}else{
-						document.getElementById("player-1").className = "board__token";
-						document.getElementById("player-2").className = "board__token";
-					}
-					
-					playerTwo.currentField = field;
-					Cookies.set("player-2", playerTwo);
-				}
-				
-			}, 800 * i);
+			}, 1000 * i);
 		}
 		
-		newFieldBoard = document.querySelector(`[data-field=\"${newField}\"]`);
-		if (newFieldBoard.dataset.trap==="true" || newFieldBoard.dataset.trap===true){
-			this.trap(newField, player, moves*800);
-			setTimeout(this.updateTurn(moves*1600),moves*1600);
+		/*
+		function move(field){
+			token = document.getElementById(player);
+			token.className="board__token";
+			document.querySelector(`[data-field=\"${field}\"]`).appendChild(token);
+		}*/
+		
+		playerOne =Cookies.getJSON("player-1");
+		playerTwo =Cookies.getJSON("player-2");
+		
+		//if players are on the same feild, add board__token--two-tokens class, else use only board__token class
+		if (playerOne.currentField === playerTwo.currentField){
+				document.getElementById("player-1").className = "board__token board__token--two-tokens";
+				document.getElementById("player-2").className = "board__token board__token--two-tokens";
 		}else{
-			setTimeout(this.updateTurn(moves*800),moves*800);
+				document.getElementById("player-1").className = "board__token";
+				document.getElementById("player-2").className = "board__token";
 		}
 	}
 	
-	trap(field, player, timeOut){
-		let card, playerObj, newField, token;
-		let moveBack, stayCurrent, moveForward;
-		
+	trap(field, player, token){
+		let card, playerObj, newField;
 		token = document.getElementById(player);
 		card = getCard();
-		
-		if (player === "player-1"){
-			moveBack = card.textBackWard;
-			stayCurrent = card.textCurrent;
-			moveForward = card.textForward;
-		}else{
-			moveBack =  card.textBackWard.replace(/You/g, "The computer").replace(/you/g, "the computer");
-			stayCurrent = card.textCurrent.replace(/You/g, "The computer").replace(/you/g, "the computer");
-			moveForward = card.textForward.replace(/You/g, "The computer").replace(/you/g, "the computer");
-		}
-
-		if (card.moveToField<field){
-			document.getElementById("textCardField").innerHTML=moveBack;
-		}else if(card.moveToField===field){
-			document.getElementById("textCardField").innerHTML=stayCurrent;
-		}else if(card.moveToField>field){
-			document.getElementById("textCardField").innerHTML=moveForward;
-		}
-		
-		setTimeout(function(){
+			//console.log(card);
+			if (card.moveToField<field){
+				document.getElementById("textCardField").innerHTML=card.textBackWard;
+			}else if(card.moveToField===field){
+				document.getElementById("textCardField").innerHTML=card.textCurrent;
+			}else if(card.moveToField>field){
+				document.getElementById("textCardField").innerHTML=card.textForward;
+			}
 			$("#cardFieldModal").modal("show");
 			playerObj = Cookies.getJSON(player);
 			playerObj.currentField=card.moveToField;
 			Cookies.set(player, playerObj);
-		},timeOut);
-
-		$("#closeCardModal").click(function(){
-			setTimeout(function(){
-				newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-				newField.appendChild(token);
-			},500);
-		});
-	}
-	
-	updateTurn(minTimeOut){
-		//let timeOut = minTimeOut+800
-		//setTimeout(function(){
-			let player, playerObj;
-		
-			player ="player-"+this.playerNr;
-			playerObj = Cookies.getJSON(player);
-
-			if (player === "player-1"){
-				if (playerObj.rolledSix==="true" || playerObj.rolledSix === true){
-					document.getElementById("rollDice").disabled = false;
-					playerObj.turn = true;
-					playerObj.rolledSix = false;
-					Cookies.set(player, playerObj);
-
-					//$("#rolledSixModal").modal("show");
-
-					document.getElementById("turn").innerHTML="your turn";
-					document.getElementById("p1-turn").style.display="block";
-					document.getElementById("p2-turn").style.display="none";
-
-				}else{
-					let playerObjTwo
-					document.getElementById("rollDice").disabled = true;
-
-					playerObjTwo = Cookies.getJSON("player-2");
-					playerObjTwo.turn=true;
-					Cookies.set("player-2", playerObjTwo);
-					setTimeout(function(){
-						document.getElementById("turn").innerHTML="computers turn";
-						document.getElementById("p1-turn").style.display="none";
-						document.getElementById("p2-turn").style.display="block";
-					}, minTimeOut+800);
-					//document.getElementById("turn").innerHTML="computers turn";
-					//document.getElementById("p1-turn").style.display="none";
-					//document.getElementById("p2-turn").style.display="block";
-				}
-			}else if(player === "player-2"){
-				if (playerObj.rolledSix==="true" || playerObj.rolledSix === true){
-					document.getElementById("rollDice").disabled = true;
-					playerObj.turn = true;
-					playerObj.rolledSix = false;
-					Cookies.set(player, playerObj);
-
-					//$("#rolledSixModalText").replace(/You/i, "The computer").replace(/you/i, "the computer");
-					// $("#rolledSixModal").modal("show");
-					
-					setTimeout(function(){
-						document.getElementById("turn").innerHTML="computers turn";
-						document.getElementById("p1-turn").style.display="none";
-						document.getElementById("p2-turn").style.display="block";
-					},minTimeOut+800)
-					
-					//document.getElementById("turn").innerHTML="computers turn";
-					//document.getElementById("p1-turn").style.display="none";
-					//document.getElementById("p2-turn").style.display="block";
-					
-				}else{
-					let playerObjOne				
-
-					playerObjOne = Cookies.getJSON("player-1");
-					playerObjOne.turn=true;
-					Cookies.set("player-1", playerObjOne);
-					
-					setTimeout(function(){
-						document.getElementById("turn").innerHTML="Your turn";
-						document.getElementById("p1-turn").style.display="block";
-						document.getElementById("p2-turn").style.display="none";
-					},minTimeOut+800)
-					
-					//document.getElementById("turn").innerHTML="Your turn";
-					//document.getElementById("p1-turn").style.display="block";
-					//document.getElementById("p2-turn").style.display="none";
-
-
-					document.getElementById("rollDice").disabled = false;
-				}
-			}
-		//},timeOut);
+			
+			$("#closeCardModal").click(function(){
+				setTimeout(function(){
+					newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+					newField.appendChild(token);
+				},500);
+			});
 	}
 }
 
@@ -415,6 +392,8 @@ let p1, p2, charOne, charTwo, game, savedGame;
 charOne = Cookies.getJSON('player-1').character;
 charTwo = Cookies.getJSON('player-2').character;
 savedGame = Cookies.getJSON('game');
+
+
 
 //initialize classes and start game
 p1="";
@@ -491,24 +470,7 @@ function getCard(){
 //roll dice click eventlistener
 document.getElementById("rollDice").addEventListener("click", function(){
 	p1.rollDice();
-	
-	//setTimeout(function(){
-		//p2.rollDice()
-	//},7000);
 });
-
-
-document.getElementById("rollDiceComputer").addEventListener("click", function(){
-	p2.rollDice();
-});
-
-//check if it is computers turn
-/*let p2Turn = setInterval(function(){
-	let playerTwoCookie = Cookies.getJSON("player-2");
-	if (playerTwoCookie.turn==="true" || playerTwoCookie.turn===true){
-		p2.rollDice();
-	}
-},7000);*/ 
 
 //info modal
 document.getElementById("gameInfo").addEventListener("click", function(){

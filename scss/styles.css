@@ -296,3 +296,9 @@ button.close {
     position: absolute;
     bottom: 15px;
     left: 155px; }
+  .overview__dice-btn-comp {
+    width: 30%;
+    height: 50px;
+    position: absolute;
+    bottom: 15px;
+    left: 305px; }
