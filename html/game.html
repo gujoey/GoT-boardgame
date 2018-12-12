@@ -33,6 +33,23 @@
 				<a id="restartGame" class="vertical-nav__link" href="#"><i class="fas fa-undo vertical-nav__icon"></i><br>Restart <br> Game</a>
 				<a id="saveGame" class="vertical-nav__link" href="#"><i class="fas fa-save vertical-nav__icon"></i><br>Save <br> Game</a>
 			</nav>
+			
+			<div id="navigation" class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand" href="#">Game of Boards</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a id="gameInfoCollapsed" class="nav-link" href="#">Info  <i class="fas fa-info-circle vertical-nav__icon"></i></a>
+								<a id="quitGameCollapsed" class="nav-link" href="#">Quit Game <i class="fas fa-home vertical-nav__icon"></i></a>
+								<a id="restartGameCollapsed" class="nav-link" href="#">Restart Game  <i class="fas fa-undo vertical-nav__icon"></i></a>
+								<a id="saveGameCollapsed" class="nav-link" href="#">Save  <i class="fas fa-save vertical-nav__icon"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
 		</header>
 		
 		<main>
@@ -107,7 +124,7 @@
 
 		<!-- Modal Info -->
 		<div class="modal fade" id="gameInfoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalTitle" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h2 class="modal-title" id="infoModalTitle">Game Play</h2>
@@ -126,7 +143,12 @@
 							The orange fields are cardfields and if you land on one of these fields you will automatically be delt a card. This card can either move you forward, backward or make you stay in your current position. <br><br>
 							
 							PS: the orange fields change position for every new game you start. <br><br>
+						
+							<strong>Sreen resolution <small class="red-text">IMPORTANT</small> </strong><br>
+							This site is optimized for regular pc screens with a screen resolution between HD (1280x720) and fullHD (1920x1080). <br><br>
+							If your screen is not within these resolutions (if you are on mobile for example) the game experince will not be as intended. <br><br>
 							Good Luck!
+							
 						</p>
 					</div>
 					<div class="modal-footer">

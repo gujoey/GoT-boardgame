@@ -86,6 +86,10 @@ button.close {
   text-shadow: none;
 }
 
+small.red-text {
+  color: red;
+}
+
 .btn {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
@@ -156,7 +160,7 @@ button.close {
   font-size: 50px;
 }
 
-@media screen and (max-width: 1350px) {
+@media screen and (max-width: 1670px) {
   .vertical-nav {
     display: none;
   }
@@ -179,27 +183,27 @@ button.close {
     margin-right: 30px;
   }
 }
-@media screen and (max-width: 1350px) and (max-width: 991px) {
+@media screen and (max-width: 1670px) and (max-width: 991px) {
   .nav-link {
     display: block;
   }
 }
-@media screen and (max-width: 1350px) {
+@media screen and (max-width: 1670px) {
   .nav-link:hover {
     color: #fff !important;
   }
 }
-@media screen and (max-width: 1350px) {
+@media screen and (max-width: 1670px) {
   .nav-link .fas {
     font-size: 30px;
   }
 }
-@media screen and (max-width: 1350px) {
+@media screen and (max-width: 1670px) {
   .navbar-toggler {
     border-color: transparent;
   }
 }
-@media screen and (max-width: 1350px) {
+@media screen and (max-width: 1670px) {
   .navbar-light .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(185,185,185)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
   }
@@ -265,6 +269,16 @@ button.close {
 .game-container {
   position: absolute;
   left: 15%;
+  /*@media screen and (min-width: $hd-screens){
+  	left: 110px  ;
+  	top: 5px
+  }*/
+}
+@media screen and (max-width: 1670px) {
+  .game-container {
+    left: 15px;
+    top: 5px;
+  }
 }
 
 .board {
@@ -283,6 +297,12 @@ button.close {
   background-color: #B9B9B9;
   display: inline-block;
   margin: 0;
+}
+@media screen and (max-width: 1670px) {
+  .board__square {
+    height: 117px;
+    width: 117px;
+  }
 }
 .board__square--black {
   background-color: #181818;
@@ -331,6 +351,11 @@ button.close {
   height: 600px;
   width: 450px;
   background-color: #181818;
+}
+@media screen and (max-width: 1670px) {
+  .overview {
+    left: 74%;
+  }
 }
 .overview__player {
   width: 48%;

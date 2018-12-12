@@ -1,6 +1,14 @@
 .game-container{
 	position: absolute;
 	left: 15%;
+	/*@media screen and (min-width: $hd-screens){
+		left: 110px  ;
+		top: 5px
+	}*/
+	@media screen and (max-width: $hd-screens){
+		left: 15px;
+		top: 5px
+	}
 	//width: 70%; 
 	//margin: auto;
 } 
@@ -22,6 +30,10 @@
 		background-color: $light-grey;
 		display: inline-block;
 		margin: 0;
+		@media screen and (max-width: $hd-screens){
+			height: 117px;
+			width: 117px;
+		}	
 			
 		&--black{
 			background-color: $dark-grey;
@@ -74,6 +86,10 @@
 	height: 600px;
 	width: 450px;
 	background-color: $dark-grey;
+	@media screen and (max-width: $hd-screens){
+		left: 74%;
+	}
+	
 	&__player{
 		width: 48%;
 		margin: auto;
