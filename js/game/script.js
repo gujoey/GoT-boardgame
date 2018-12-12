@@ -309,7 +309,6 @@ class Character{
 					playerTwo.currentField = field;
 					Cookies.set("player-2", playerTwo);
 				}
-				
 			}, 800 * i);
 		}
 		
@@ -349,22 +348,27 @@ class Character{
 		
 		setTimeout(function(){
 			$("#cardFieldModal").modal({ backdrop: 'static', keyboard: false },"show");
+			
 			playerObj = Cookies.getJSON(player);
 			playerObj.currentField=card.moveToField;
 			Cookies.set(player, playerObj);
+			
+			newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+			newField.appendChild(token);
 		},timeOut);
 
-		$("#closeCardModal").click(function(){
+		//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+		$("#closeCardModal").click(function(e){
 			setTimeout(function(){
-				newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-				newField.appendChild(token);
+				//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+				//newField.appendChild(token);
 			},500);
 		});
 		
-		$("#closeCardModalX").click(function(){
+		$("#closeCardModalX").click(function(e){
 			setTimeout(function(){
-				newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-				newField.appendChild(token);
+				//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+				//newField.appendChild(token);
 			},500);
 		});
 	}

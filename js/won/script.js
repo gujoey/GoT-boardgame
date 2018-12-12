@@ -90,7 +90,8 @@ if(wonCookie.won === "player-1"){
 	},500);
 }
 
-document.getElementById("gameInfo").addEventListener("click", function(){
+document.getElementById("gameInfo").addEventListener("click", function(e){
+	e.preventDefault();
 	if(wonCookie.won==="player-1"){
 		$("#wonModal").modal("show");
 	}else{
@@ -98,10 +99,31 @@ document.getElementById("gameInfo").addEventListener("click", function(){
 	}
 });
 
-document.getElementById("restartGame").addEventListener("click", function(){
+document.getElementById("gameInfoCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
+	if(wonCookie.won==="player-1"){
+		$("#wonModal").modal("show");
+	}else{
+		$("#lostModal").modal("show");
+	}
+});
+
+document.getElementById("restartGame").addEventListener("click", function(e){
+	e.preventDefault();
 	window.location.replace("game.html");
 });
 
-document.getElementById("quitGame").addEventListener("click", function(){
+document.getElementById("restartGameCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
+	window.location.replace("game.html");
+});
+
+document.getElementById("quitGame").addEventListener("click", function(e){
+	e.preventDefault();
+	window.location.replace("index.html");
+});
+
+document.getElementById("quitGameCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
 	window.location.replace("index.html");
 });
