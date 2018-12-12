@@ -18,8 +18,6 @@ function createCard(apiRes){
 	//button variables
 	let btn, btnText;
 	
-	//i = 0;
-	
 	//get the row element
 	row = document.getElementById("row");
 	
@@ -182,7 +180,6 @@ function getApi(param){
 	})
 	.then(result=>{
 		createCard(result);
-		//console.log(result);
 	}) 
 }
 
@@ -227,15 +224,6 @@ $(document).ready(function() {
 		Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
 		Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
 	}
-	
-		//open tutorial modal on document ready
-
-
-		//$('#tutorialModal').modal('show');
-
-		//set player cookies
-		//Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
-		//Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
 
 		//opens tutorial modal when info button is clicked
 		$("#gameInfo").click(function(e){
