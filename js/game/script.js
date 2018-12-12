@@ -2,7 +2,7 @@
 class Game{
 	constructor(p1, p2, p1Pos, p2Pos, traps){
 		this.playerOne = p1;
-		this.playerTwo = p2; //correct player to plater here
+		this.playerTwo = p2;
 		this.p1Pos = p1Pos;
 		this.p2Pos = p2Pos;
 		this.traps = traps;
@@ -29,9 +29,6 @@ class Game{
 		fieldOne.appendChild(playerTwoToken);
 		
 		//get 8 random numbers between 2 and 29 and use these to populate the board with traps
-		//make sure that the funtction doesnt return two equal numbers
-		//trapsNumber=randomize(2,30,5);
-		
 		trapsNumber = this.getRandomTrapNumber();
 		
 		for (let i=0; i<trapsNumber.length; i++){
@@ -126,12 +123,8 @@ class Game{
 	}
 	
 	restore(){
-		//console.log("game is restored");
 		let playerOneToken, playerTwoToken, fieldP1Token, fieldP2Token, traps, trapsNumber;
-		//let p1Cookie, p2Cookie;
-		//p1Cookie = Cookies.getJSON("player-1");
-		//p2Cookie = Cookies.getJSON("player-2");
-
+		
 		fieldP1Token= document.querySelector(`[data-field="${this.p1Pos}"]`);
 		fieldP2Token= document.querySelector(`[data-field="${this.p2Pos}"]`);
 		
@@ -161,7 +154,7 @@ class Game{
 		
 		for (let i=0; i<trapsNumber.length; i++){
 			let field;
-			field = document.querySelector("[data-field=\'" + trapsNumber[i] + "\']"); //change this for consitancy
+			field = document.querySelector("[data-field=\'" + trapsNumber[i] + "\']");
 			field.dataset.trap="true";
 			field.className="board__square board__square--trap";
 		}
@@ -194,6 +187,26 @@ class Game{
 			document.getElementById("p2OverviewToken").remove();
 		}
 		
+		let p1, p2;
+		p1 = Cookies.getJSON("player-1");
+		p2 = Cookies.getJSON("player-2");
+		console.log(p1);
+		
+		if (p1.turn === true || p1.turn === "true"){
+			document.getElementById("passDiceToComp").style.display="none";
+			document.getElementById("rollDice").disabled=false;
+			document.getElementById("p1-turn").style.display="block";
+			document.getElementById("p2-turn").style.display="none";
+			document.getElementById("show-dice-nr").innerHTML="";
+		}else{
+			document.getElementById("passDiceToComp").style.display="block";
+			document.getElementById("rollDice").disabled=true;
+			document.getElementById("p1-turn").style.display="none";
+			document.getElementById("p2-turn").style.display="block";
+			document.getElementById("show-dice-nr").innerHTML="";
+		}
+		
+		
 		imgP2 = document.createElement("img");
 		imgP2.className="overview__img";
 		imgP2.id="p2OverviewToken";
@@ -203,9 +216,7 @@ class Game{
 	}
 	
 	won(winner, p1Cookie, p2Cookie){
-		//alert(winner + " won the game");
 		Cookies.set("won", {won: winner, playerOne: p1Cookie, playerTwo: p2Cookie});
-		//console.log(Cookies.getJSON("won"));
 		game.newGame();
 		window.location.replace("won.html");
 	}
@@ -235,10 +246,6 @@ class Character{
 		player ="player-"+this.playerNr;
 		playerObj = Cookies.getJSON(player);
 		
-		/*if (player === "player-2"){
-			clearInterval(p2Turn);
-		}*/
-		
 		if (num[0]===6){
 			playerObj.rolledSix=true;
 			Cookies.set(player, playerObj);
@@ -252,7 +259,6 @@ class Character{
 		field += num[0];
 		if (field>=30){
 			field=30; 
-			//add won function here
 		}
 		
 		this.moveToken(player, Number(playerObj.currentField), field);
@@ -269,7 +275,6 @@ class Character{
 				let field;
 				field=currentField+i+1;
 				token = document.getElementById(player);
-				//token.className="board__token";
 				document.querySelector(`[data-field=\"${field}\"]`).appendChild(token);
 				
 				if (player === "player-1"){
@@ -278,10 +283,10 @@ class Character{
 					
 					if (field === Number(playerTwo.currentField)){
 						let p1, p2;
-						p1 = document.getElementById("player-1");//.className = "board__token board__token--two-tokens";
+						p1 = document.getElementById("player-1");
 						p1.className = "board__token board__token--two-tokens";
 						
-						p2 = document.getElementById("player-2");//.className = "board__token board__token--two-tokens";
+						p2 = document.getElementById("player-2");
 						p2.className = "board__token board__token--two-tokens";
 					}else{
 						document.getElementById("player-1").className = "board__token";
@@ -296,10 +301,10 @@ class Character{
 					let playerTwo = Cookies.getJSON("player-2");
 					if (field === Number(playerOne.currentField)){
 						let p1, p2;
-						p1 = document.getElementById("player-1");//.className = "board__token board__token--two-tokens";
+						p1 = document.getElementById("player-1");
 						p1.className = "board__token board__token--two-tokens";
 
-						p2 = document.getElementById("player-2");//.className = "board__token board__token--two-tokens";
+						p2 = document.getElementById("player-2");
 						p2.className = "board__token board__token--two-tokens";
 					}else{
 						document.getElementById("player-1").className = "board__token";
@@ -315,7 +320,7 @@ class Character{
 		newFieldBoard = document.querySelector(`[data-field=\"${newField}\"]`);
 		if (newFieldBoard.dataset.trap==="true" || newFieldBoard.dataset.trap===true){
 			this.trap(newField, player, moves*800);
-			setTimeout(this.updateTurn(moves*1600),moves*1600);
+			setTimeout(this.updateTurn(moves*800),moves*800);
 		}else{
 			setTimeout(this.updateTurn(moves*800),moves*800);
 		}
@@ -346,6 +351,13 @@ class Character{
 			document.getElementById("textCardField").innerHTML=moveForward;
 		}
 		
+		let opponentField;
+		if (player==="player-1"){
+			opponentField = Cookies.getJSON("player-2").currentField;
+		}else{
+			opponentField = Cookies.getJSON("player-1").currentField;
+		}
+		
 		setTimeout(function(){
 			$("#cardFieldModal").modal({ backdrop: 'static', keyboard: false },"show");
 			
@@ -353,24 +365,14 @@ class Character{
 			playerObj.currentField=card.moveToField;
 			Cookies.set(player, playerObj);
 			
+			if (playerObj.currentField===opponentField){
+				document.getElementById("player-1").className="board__token board__token--two-tokens";
+				document.getElementById("player-2").className="board__token board__token--two-tokens";
+			}
+			
 			newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
 			newField.appendChild(token);
 		},timeOut);
-
-		//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-		/*$("#closeCardModal").click(function(e){
-			setTimeout(function(){
-				//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-				//newField.appendChild(token);
-			},500);
-		});*/
-		
-		/*$("#closeCardModalX").click(function(e){
-			setTimeout(function(){
-				//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-				//newField.appendChild(token);
-			},500);
-		});*/
 	}
 	
 	updateTurn(minTimeOut){
@@ -381,7 +383,6 @@ class Character{
 
 		if (player === "player-1"){
 			if (playerObj.rolledSix==="true" || playerObj.rolledSix === true){
-				//document.getElementById("rollDice").disabled = false;
 				playerObj.turn = true;
 				playerObj.rolledSix = false;
 				Cookies.set(player, playerObj);
@@ -402,14 +403,17 @@ class Character{
 					}
 					
 					document.getElementById("rollDice").disabled = false;
+					game.save();
 				}, minTimeOut+300);
 			}else{
 				let playerObjTwo
 				document.getElementById("rollDice").disabled = true;
 				
 				playerObjTwo = Cookies.getJSON("player-2");
-				playerObjTwo.turn=true;
+				playerObjTwo.turn = true;
+				playerObj.turn = false;
 				Cookies.set("player-2", playerObjTwo);
+				Cookies.set(player, playerObj);
 				setTimeout(function(){
 					document.getElementById("turn").innerHTML="computers turn";
 					document.getElementById("p1-turn").style.display="none";
@@ -421,6 +425,7 @@ class Character{
 					if(playerObjOne.currentField === 30){
 						game.won("player-1", playerObjOne, playerObjTwo);
 					}
+					game.save();
 				}, minTimeOut+300);
 			}
 		}else if(player === "player-2"){
@@ -445,6 +450,7 @@ class Character{
 					}else{
 						$("#rolledSixModal").modal("show");
 					}
+					game.save();
 				},minTimeOut+300);
 
 			}else{
@@ -452,7 +458,9 @@ class Character{
 
 				playerObjOne = Cookies.getJSON("player-1");
 				playerObjOne.turn=true;
+				playerObj.turn = false;
 				Cookies.set("player-1", playerObjOne);
+				Cookies.set(player, playerObj);
 
 				setTimeout(function(){
 					document.getElementById("turn").innerHTML="Your turn";
@@ -465,6 +473,8 @@ class Character{
 					if(playerObjTwo.currentField === 30){
 						game.won("player-2", playerObjOne, playerObjTwo);
 					}
+					
+					game.save();
 				},minTimeOut+300);
 			}
 		}
@@ -484,6 +494,7 @@ p2="";
 if (savedGame.newGame===false){
 	let p1Pos, p2Pos, traps;
 	
+	console.log(savedGame);
 	p1 = new Character(savedGame.playerOne.character,1);
 	p1Pos = savedGame.playerOne.currentField;
 	

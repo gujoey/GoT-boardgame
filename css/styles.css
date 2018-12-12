@@ -183,7 +183,7 @@ small.red-text {
   }
 
   .nav-link {
-    font-size: 30px;
+    font-size: 22px;
     color: #B9B9B9 !important;
     display: inline;
     margin-right: 30px;
@@ -201,7 +201,7 @@ small.red-text {
 }
 @media screen and (max-width: 1670px) {
   .nav-link .fas {
-    font-size: 30px;
+    font-size: 22px;
   }
 }
 @media screen and (max-width: 1670px) {

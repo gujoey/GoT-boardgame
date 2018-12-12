@@ -147,7 +147,7 @@ small.red-text {
     color: #B9B9B9 !important; }
 
   .nav-link {
-    font-size: 30px;
+    font-size: 22px;
     color: #B9B9B9 !important;
     display: inline;
     margin-right: 30px; } }
@@ -158,7 +158,7 @@ small.red-text {
     .nav-link:hover {
       color: #fff !important; }
     .nav-link .fas {
-      font-size: 30px; }
+      font-size: 22px; }
 
   .navbar-toggler {
     border-color: transparent; }
