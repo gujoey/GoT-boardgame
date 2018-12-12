@@ -34,4 +34,10 @@
 			color: $light-grey;
 		}
 	}
+	
+	&--smaller-font{
+		@media screen and (max-width: $brake-xxs){
+			font-size: 14px;
+		}
+	}
 }

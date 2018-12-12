@@ -125,6 +125,11 @@ small.red-text {
   background-color: red;
   color: #B9B9B9;
 }
+@media screen and (max-width: 371px) {
+  .btn--smaller-font {
+    font-size: 14px;
+  }
+}
 
 #navigation {
   display: none;

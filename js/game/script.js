@@ -333,9 +333,9 @@ class Character{
 			stayCurrent = card.textCurrent;
 			moveForward = card.textForward;
 		}else{
-			moveBack =  card.textBackWard.replace(/You/g, "The computer").replace(/you/g, "the computer");
-			stayCurrent = card.textCurrent.replace(/You/g, "The computer").replace(/you/g, "the computer");
-			moveForward = card.textForward.replace(/You/g, "The computer").replace(/you/g, "the computer");
+			moveBack =  card.textBackWard.replace(/You/i, "The computer").replace(/your/g, "the computers") .replace(/you/g, "the computer");
+			stayCurrent = card.textCurrent.replace(/You/g, "The computer").replace(/your/g, "the computers").replace(/you/g, "the computer");
+			moveForward = card.textForward.replace(/You/g, "The computer").replace(/your/g, "the computers").replace(/you/g, "the computer");
 		}
 
 		if (card.moveToField<field){
@@ -358,19 +358,19 @@ class Character{
 		},timeOut);
 
 		//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-		$("#closeCardModal").click(function(e){
+		/*$("#closeCardModal").click(function(e){
 			setTimeout(function(){
 				//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
 				//newField.appendChild(token);
 			},500);
-		});
+		});*/
 		
-		$("#closeCardModalX").click(function(e){
+		/*$("#closeCardModalX").click(function(e){
 			setTimeout(function(){
 				//newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
 				//newField.appendChild(token);
 			},500);
-		});
+		});*/
 	}
 	
 	updateTurn(minTimeOut){
@@ -381,7 +381,7 @@ class Character{
 
 		if (player === "player-1"){
 			if (playerObj.rolledSix==="true" || playerObj.rolledSix === true){
-				document.getElementById("rollDice").disabled = false;
+				//document.getElementById("rollDice").disabled = false;
 				playerObj.turn = true;
 				playerObj.rolledSix = false;
 				Cookies.set(player, playerObj);
@@ -399,7 +399,8 @@ class Character{
 					}else{
 						$("#rolledSixModal").modal("show");
 					}
-
+					
+					document.getElementById("rollDice").disabled = false;
 				}, minTimeOut+300);
 			}else{
 				let playerObjTwo
