@@ -1,16 +1,10 @@
 .game-container{
 	position: absolute;
 	left: 15%;
-	/*@media screen and (min-width: $hd-screens){
-		left: 110px  ;
-		top: 5px
-	}*/
 	@media screen and (max-width: $hd-screens){
 		left: 15px;
 		top: 5px
 	}
-	//width: 70%; 
-	//margin: auto;
 } 
 
 .board{
@@ -150,6 +144,12 @@
 		position: absolute;
 		bottom: 15px;
 		left: 155px;
+		&--pass-dice{
+			left: 30px;
+			top: 200px;
+			width: 400px;  
+			height: 200px; 
+		}
 	}
 	&__dice-btn-comp{
 		width: 30%;
@@ -157,5 +157,15 @@
 		position: absolute;
 		bottom: 15px;
 		left: 305px;
+	}
+	&__pass-dice{
+		display: none;
+		position: absolute;
+		z-index: 100 !important;
+		padding: 15px;
+		margin: -15px;
+		height: 100%;
+		width: 100%;
+		background-color: $white-o; 
 	}
 }

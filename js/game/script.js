@@ -390,6 +390,7 @@ class Character{
 					document.getElementById("turn").innerHTML="your turn";
 					document.getElementById("p1-turn").style.display="block";
 					document.getElementById("p2-turn").style.display="none";
+					document.getElementById("rolledSixModalHeader").innerHTML="You rolled a six";
 					document.getElementById("rolledSixModalText").innerHTML="You can roll again since you threw a six.";
 					
 					let playerObjOne = Cookies.getJSON("player-1");
@@ -413,6 +414,7 @@ class Character{
 					document.getElementById("turn").innerHTML="computers turn";
 					document.getElementById("p1-turn").style.display="none";
 					document.getElementById("p2-turn").style.display="block";
+					document.getElementById("passDiceToComp").style.display="block";
 					
 					let playerObjOne = Cookies.getJSON("player-1");
 					let playerObjTwo = Cookies.getJSON("player-2");
@@ -432,6 +434,8 @@ class Character{
 					document.getElementById("turn").innerHTML="computers turn";
 					document.getElementById("p1-turn").style.display="none";
 					document.getElementById("p2-turn").style.display="block";
+					document.getElementById("passDiceToComp").style.display="block";
+					document.getElementById("rolledSixModalHeader").innerHTML="The computer rolled a six";
 					document.getElementById("rolledSixModalText").innerHTML="The computer can roll again since it threw a six.";
 					
 					let playerObjOne = Cookies.getJSON("player-1");
@@ -558,7 +562,11 @@ document.getElementById("rollDice").addEventListener("click", function(){
 
 
 document.getElementById("rollDiceComputer").addEventListener("click", function(){
-	p2.rollDice();
+	
+	setTimeout(function(){
+		document.getElementById("passDiceToComp").style.display="none";
+		p2.rollDice();
+	},350);
 });
 
 //info modal
@@ -566,15 +574,43 @@ document.getElementById("gameInfo").addEventListener("click", function(){
 	$('#gameInfoModal').modal('show');
 });
 
+document.getElementById("gameInfoCollapsed").addEventListener("click", function(){
+	$('#gameInfoModal').modal('show');
+});
+
+
+
 //quit game modal
 document.getElementById("quitGame").addEventListener("click", function(){
 	$('#quitGameModal').modal('show');
 });
 
+document.getElementById("quitGameCollapsed").addEventListener("click", function(){
+	$('#quitGameModal').modal('show');
+});
+
+
+
 //modal restart game
 document.getElementById("restartGame").addEventListener("click", function(){
 	$('#newGameModal').modal('show');
 });
+
+document.getElementById("restartGameCollapsed").addEventListener("click", function(){
+	$('#newGameModal').modal('show');
+});
+
+//save game
+document.getElementById("saveGame").addEventListener("click", function(){
+	game.save();
+  	$("#saveGameModal").modal("show");
+});
+
+document.getElementById("saveGameCollapsed").addEventListener("click", function(){
+	game.save();
+  	$("#saveGameModal").modal("show");
+});
+
 
 //redirect if user clicks quit game button in quit game modal
 document.getElementById("quitGameModalBtn").addEventListener("click", function(){
@@ -600,10 +636,4 @@ document.getElementById("quitGameModalBtn").addEventListener("click", function()
 //restart game click event listener
 document.getElementById("btnNewGame").addEventListener("click", function(){
 	game.newGame();
-});
-
-document.getElementById("saveGame").addEventListener("click", function(){
-	game.save();
-  	$("#saveGameModal").modal("show");
-	
 });

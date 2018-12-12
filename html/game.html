@@ -102,6 +102,9 @@
 
 				<!--overview section-->
 				<div class="overview">
+					<div id="passDiceToComp" class="overview__pass-dice">
+						<button id="rollDiceComputer" class="btn btn--dark-grey overview__dice-btn overview__dice-btn--pass-dice" type="button">Pass dice to computer</button>
+					</div>
 					<h1 id="turn" class="overview__turn">your turn</h1>
 					<div id="overviewP1" class="overview__player">
 						<span class="overview__players">you</span>
@@ -115,7 +118,7 @@
 					<span id="p2-turn" class="overview__dice-icon-p2"><i class="fas fa-dice"></i></span>
 					<span id="show-dice-nr" class="overview__dice-nr"></span>
 					<button type="button" id="rollDice" class="btn btn--light-grey overview__dice-btn">Roll Dice</button>
-					<button type="button" id="rollDiceComputer" class="btn btn--light-grey overview__dice-btn-comp">Roll Comp</button>
+					<!--<button type="button" id="rollDiceComputer" class="btn btn--light-grey overview__dice-btn-comp">Roll Comp</button>-->
 				</div>
 			</div>
 		</main>
@@ -138,6 +141,7 @@
 							Be the first player to reach field number 30. <br><br>
 							<strong>How to play</strong><br>
 							On the right side of the board, you have a panel that shows an overview of whos turn it is. You can see whos turn it is by looking at the top of the overview box or by looking for the dice under your token. You then start your turn by clicking the roll dice button. <br><br>
+							When your turn is over, a button prompting you to pass the dice to the computer will appear in the overview panel to the right. Click that button to make the computer roll the dice. <br><br> 
 						
 							<strong>Orange Fields</strong><br>
 							The orange fields are cardfields and if you land on one of these fields you will automatically be delt a card. This card can either move you forward, backward or make you stay in your current position. <br><br>
