@@ -207,16 +207,25 @@ for (let i=0; i<characters.length; i++){
 
 $(document).ready(function() {
 	let getGameStatus = Cookies.getJSON("game");
-
+	let p1 = Cookies.getJSON("player-1");
+	let p2 = Cookies.getJSON("player-2");
+	
+	
 	if (getGameStatus){
 		if (getGameStatus.newGame===false){
-			$("#gameExist").modal("show");	
+			//backdrop set to static to prevent user from accidentaly hitting outside modal
+			$("#gameExist").modal({ backdrop: 'static', keyboard: false },"show");
+		}else if(getGameStatus.newGame===true &&  p1.selected===true || p2.selected===true){
+			//make sure that if one or more characters are selected and user refreseshes window, the user will still be able to select character.
+			p1.selected = false;
+			p2.selected = false;
+			Cookies.set("player-1", p1);
+			Cookies.set("player-2", p2);			
 		}
 	}else{
 		$("#tutorialModal").modal("show");
 		Cookies.set("player-1", {character: "", selected: false, currentField: 1, turn: true, rolledSix: false});
 		Cookies.set("player-2", {character: "", selected: false, currentField: 1, turn: false, rolledSix: false});
-		//newGame();
 	}
 	
 		//open tutorial modal on document ready
@@ -331,23 +340,32 @@ $(document).ready(function() {
 
 		$(document).on('click','#newGameBtn', function(e){
 			e.preventDefault();
-			let p1, p2;
+			let p1, p2, game;
 			
 			p1= Cookies.getJSON('player-1');
 			p2 = Cookies.getJSON('player-2');
+			game = Cookies.getJSON("game");
+			
 			p1.selected = false;
 			p2.selected = false;
+			game.newGame = true;
 			
 			Cookies.set("player-1", p1);
 			Cookies.set("player-2", p2);
+			Cookies.set("game", game);
 			
 			saveGame();
 		});
 		
 		//redirect user in case user is in character page, but have a game in progress
-		document.getElementById("continueGameBtn").addEventListener("click", function(){
+		document.getElementById("continueGameBtn").addEventListener("click", function(e){
+			e.preventDefault();
 			window.location.replace("game.html");
 		});
 	
-		
+		document.getElementById("currentGameExistsX").addEventListener("click", function(e){
+			e.preventDefault();
+			window.location.replace("game.html");
+		});
+	
 });

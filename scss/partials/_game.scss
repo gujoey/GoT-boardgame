@@ -1,7 +1,9 @@
 .game-container{
-	position: relative;
-	width: 100%; 
-}
+	position: absolute;
+	left: 15%;
+	//width: 70%; 
+	//margin: auto;
+} 
 
 .board{
 	width: 1000px;
@@ -67,8 +69,8 @@
 	text-align: center;
 	position: absolute;
 	padding: 15px;
-	top: 0;
-	right: 15px;
+	top: 70px;
+	left: 95%;
 	height: 600px;
 	width: 450px;
 	background-color: $dark-grey;

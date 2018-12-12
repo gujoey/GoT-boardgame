@@ -152,6 +152,12 @@ button.close {
 
   .navbar-light .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(185,185,185)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); } }
+.row {
+  margin-bottom: 30px; }
+  @media screen and (max-width: 992px) {
+    .row {
+      margin-bottom: 15px; } }
+
 .col-inner {
   position: relative;
   border: 4px #000 solid;
@@ -193,8 +199,8 @@ button.close {
     margin: auto; }
 
 .game-container {
-  position: relative;
-  width: 100%; }
+  position: absolute;
+  left: 15%; }
 
 .board {
   width: 1000px;
@@ -245,8 +251,8 @@ button.close {
   text-align: center;
   position: absolute;
   padding: 15px;
-  top: 0;
-  right: 15px;
+  top: 70px;
+  left: 95%;
   height: 600px;
   width: 450px;
   background-color: #181818; }
@@ -302,3 +308,32 @@ button.close {
     position: absolute;
     bottom: 15px;
     left: 305px; }
+
+.won-column {
+  color: #fff !important;
+  text-align: center;
+  margin-top: 30px;
+  background-color: #181818;
+  padding: 15px; }
+  @media screen and (max-width: 992px) {
+    .won-column {
+      margin-top: 15px; } }
+  .won-column__h1 {
+    background-color: #181818;
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-size: 2.5rem; }
+  .won-column__h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 2.5rem; }
+    .won-column__h2--p-font {
+      font-family: "Raleway", sans-serif; }
+  .won-column__token {
+    display: block;
+    width: 70%;
+    margin: auto; }
+  .won-column__icon-winner {
+    color: gold; }
+  .won-column__icon-looser {
+    color: red; }

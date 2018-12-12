@@ -63,12 +63,12 @@
 						<div data-field="13" data-trap="false" class="board__square board__square--black">13</div>
 					</div>
 					<div class="board__row">
-						<div data-field="7" data-trap="false" class="board__square board__square--black"><p>7</p></div>
-						<div data-field="8" data-trap="false" class="board__square"><p>8</p></div>
-						<div data-field="9" data-trap="false" class="board__square board__square--black"><p>9</p></div>
-						<div data-field="10" data-trap="false" class="board__square"><span>10</span></div>
-						<div data-field="11" data-trap="false" class="board__square board__square--black"><p>11</p></div>
-						<div data-field="12" data-trap="false" class="board__square"><p>12</p></div>
+						<div data-field="7" data-trap="false" class="board__square board__square--black">7</div>
+						<div data-field="8" data-trap="false" class="board__square">8</div>
+						<div data-field="9" data-trap="false" class="board__square board__square--black">9</div>
+						<div data-field="10" data-trap="false" class="board__square">10</div>
+						<div data-field="11" data-trap="false" class="board__square board__square--black">11</div>
+						<div data-field="12" data-trap="false" class="board__square">12</div>
 					</div>
 					<div class="board__row">
 						<div data-field="6" data-trap="false" class="board__square">6</div>
@@ -120,7 +120,7 @@
 							<strong>Goal</strong><br>
 							Be the first player to reach field number 30. <br><br>
 							<strong>How to play</strong><br>
-							On the right side of the board, you have a panel that shows an overview of whos turn it is. You can see whos turn it is by looking at the header or check if there is a dice under your token. You then start your turn by clicking the roll dice button. <br><br>
+							On the right side of the board, you have a panel that shows an overview of whos turn it is. You can see whos turn it is by looking at the top of the overview box or by looking for the dice under your token. You then start your turn by clicking the roll dice button. <br><br>
 						
 							<strong>Orange Fields</strong><br>
 							The orange fields are cardfields and if you land on one of these fields you will automatically be delt a card. This card can either move you forward, backward or make you stay in your current position. <br><br>
@@ -189,12 +189,11 @@
 					<div class="modal-header">
 						<h2 class="modal-title" id="cardFieldModalHeader">Card field</h2>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
+							<span id="closeCardModalX" aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<p id="textCardField">
-							Text about card here!
 						</p>
 					</div>
 					<div class="modal-footer">
@@ -279,6 +278,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 				
 		<!--Script-->
-		<script type="text/javascript" src="../js/game/script-2.js"></script>
+		<script type="text/javascript" src="../js/game/script.js"></script>
 	</body>
 </html>

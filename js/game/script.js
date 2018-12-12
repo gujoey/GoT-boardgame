@@ -28,8 +28,11 @@ class Game{
 		playerTwoToken.alt="Token of character " + this.playerTwo + " for player 2.";
 		fieldOne.appendChild(playerTwoToken);
 		
-		//get 8 random numbers and use these to populate the board with traps
-		trapsNumber=randomize(2,30,8);
+		//get 8 random numbers between 2 and 29 and use these to populate the board with traps
+		//make sure that the funtction doesnt return two equal numbers
+		//trapsNumber=randomize(2,30,5);
+		
+		trapsNumber = this.getRandomTrapNumber();
 		
 		for (let i=0; i<trapsNumber.length; i++){
 			let field;
@@ -43,6 +46,24 @@ class Game{
 		
 		//open info modal
 		$("#gameInfoModal").modal("show");
+	}
+	
+	getRandomTrapNumber(){
+		let trapsNumber, unique, fiveNumbers;
+
+		trapsNumber=[];
+		fiveNumbers = false;
+		
+		while(fiveNumbers === false){
+			trapsNumber = randomize(2,30,5);
+			unique = trapsNumber.filter((v, i, a) => a.indexOf(v) === i);
+			if (unique.length<5){
+				fiveNumbers = false;
+			}else{
+				fiveNumbers = true;
+			}
+		}
+		return trapsNumber;
 	}
 	
 	newGame(){
@@ -107,6 +128,9 @@ class Game{
 	restore(){
 		//console.log("game is restored");
 		let playerOneToken, playerTwoToken, fieldP1Token, fieldP2Token, traps, trapsNumber;
+		//let p1Cookie, p2Cookie;
+		//p1Cookie = Cookies.getJSON("player-1");
+		//p2Cookie = Cookies.getJSON("player-2");
 
 		fieldP1Token= document.querySelector(`[data-field="${this.p1Pos}"]`);
 		fieldP2Token= document.querySelector(`[data-field="${this.p2Pos}"]`);
@@ -126,6 +150,11 @@ class Game{
 		playerTwoToken.src="../img/graphics/"+ this.playerTwo + ".png";
 		playerTwoToken.alt="Token of character " + this.playerTwo + " for player 2.";
 		fieldP2Token.appendChild(playerTwoToken);
+		
+		if (this.p1Pos === this.p2Pos){
+			playerOneToken.className="board__token board__token--two-tokens";
+			playerTwoToken.className="board__token board__token--two-tokens";
+		}
 		
 		//get 8 random numbers and use these to populate the board with traps
 		trapsNumber=this.traps;
@@ -173,8 +202,16 @@ class Game{
 		overviewP2.appendChild(imgP2);
 	}
 	
-	//won(){}
+	won(winner, p1Cookie, p2Cookie){
+		//alert(winner + " won the game");
+		Cookies.set("won", {won: winner, playerOne: p1Cookie, playerTwo: p2Cookie});
+		//console.log(Cookies.getJSON("won"));
+		game.newGame();
+		window.location.replace("won.html");
+	}
 }
+
+
 
 //Character Class
 class Character{
@@ -189,24 +226,22 @@ class Character{
 	
 	rollDice(){
 		let num, diceNr, player,  playerObj, playerOne, playerTwo, field, fieldPosition, token, newField;
+		
+		document.getElementById("rollDice").disabled = true;
+		
 		num = randomize(1,7,1);
 		
+		//check if player rolled six
 		player ="player-"+this.playerNr;
 		playerObj = Cookies.getJSON(player);
 		
-		if (player==="player-1"){
-			document.getElementById("rollDice").disabled = true;
-		}else{
-			document.getElementById("rollDice").disabled = false;
-		}
+		/*if (player === "player-2"){
+			clearInterval(p2Turn);
+		}*/
 		
 		if (num[0]===6){
 			playerObj.rolledSix=true;
 			Cookies.set(player, playerObj);
-			if (player==="player-1"){
-				document.getElementById("rollDice").disabled = false;
-			}
-			
 		}
 		
 		diceNr = document.getElementById("show-dice-nr");
@@ -216,113 +251,222 @@ class Character{
 		field = Number(playerObj.currentField);
 		field += num[0];
 		if (field>=30){
-			field=30;
+			field=30; 
+			//add won function here
 		}
-		playerObj.currentField=field;
-		Cookies.set(player, playerObj);
 		
-		playerOne =Cookies.getJSON("player-1");
-		playerTwo =Cookies.getJSON("player-2");
+		this.moveToken(player, Number(playerObj.currentField), field);
+		game.save();
+	}
+	
+	moveToken(player, currentField, newField){
+		let token, moves, playerOne, playerTwo, newFieldBoard;
 		
+		moves = newField-currentField;
+
+		for (let i = 0; i<moves; i++){
+			setTimeout(function(){
+				let field;
+				field=currentField+i+1;
+				token = document.getElementById(player);
+				//token.className="board__token";
+				document.querySelector(`[data-field=\"${field}\"]`).appendChild(token);
+				
+				if (player === "player-1"){
+					let playerOne = Cookies.getJSON("player-1");
+					let playerTwo = Cookies.getJSON("player-2");
+					
+					if (field === Number(playerTwo.currentField)){
+						let p1, p2;
+						p1 = document.getElementById("player-1");//.className = "board__token board__token--two-tokens";
+						p1.className = "board__token board__token--two-tokens";
+						
+						p2 = document.getElementById("player-2");//.className = "board__token board__token--two-tokens";
+						p2.className = "board__token board__token--two-tokens";
+					}else{
+						document.getElementById("player-1").className = "board__token";
+						document.getElementById("player-2").className = "board__token";
+					}
+					
+					playerOne.currentField = field;
+					Cookies.set("player-1", playerOne);
+					
+				}else if(player === "player-2"){
+					let playerOne = Cookies.getJSON("player-1");
+					let playerTwo = Cookies.getJSON("player-2");
+					if (field === Number(playerOne.currentField)){
+						let p1, p2;
+						p1 = document.getElementById("player-1");//.className = "board__token board__token--two-tokens";
+						p1.className = "board__token board__token--two-tokens";
+
+						p2 = document.getElementById("player-2");//.className = "board__token board__token--two-tokens";
+						p2.className = "board__token board__token--two-tokens";
+					}else{
+						document.getElementById("player-1").className = "board__token";
+						document.getElementById("player-2").className = "board__token";
+					}
+					
+					playerTwo.currentField = field;
+					Cookies.set("player-2", playerTwo);
+				}
+				
+			}, 800 * i);
+		}
+		
+		newFieldBoard = document.querySelector(`[data-field=\"${newField}\"]`);
+		if (newFieldBoard.dataset.trap==="true" || newFieldBoard.dataset.trap===true){
+			this.trap(newField, player, moves*800);
+			setTimeout(this.updateTurn(moves*1600),moves*1600);
+		}else{
+			setTimeout(this.updateTurn(moves*800),moves*800);
+		}
+	}
+	
+	trap(field, player, timeOut){
+		let card, playerObj, newField, token;
+		let moveBack, stayCurrent, moveForward;
+		
+		token = document.getElementById(player);
+		card = getCard();
+		
+		if (player === "player-1"){
+			moveBack = card.textBackWard;
+			stayCurrent = card.textCurrent;
+			moveForward = card.textForward;
+		}else{
+			moveBack =  card.textBackWard.replace(/You/g, "The computer").replace(/you/g, "the computer");
+			stayCurrent = card.textCurrent.replace(/You/g, "The computer").replace(/you/g, "the computer");
+			moveForward = card.textForward.replace(/You/g, "The computer").replace(/you/g, "the computer");
+		}
+
+		if (card.moveToField<field){
+			document.getElementById("textCardField").innerHTML=moveBack;
+		}else if(card.moveToField===field){
+			document.getElementById("textCardField").innerHTML=stayCurrent;
+		}else if(card.moveToField>field){
+			document.getElementById("textCardField").innerHTML=moveForward;
+		}
 		
 		setTimeout(function(){
-			token = document.getElementById(player);
-			token.className="board__token";
-			newField = document.querySelector(`[data-field=\"${field}\"]`);
-			
-			//if players are on the same feild, add board__token--two-tokens class, else use only board__token class
-			if (playerOne.currentField === playerTwo.currentField){
-					document.getElementById("player-1").className = "board__token board__token--two-tokens";
-					document.getElementById("player-2").className = "board__token board__token--two-tokens";
-			}else{
-					document.getElementById("player-1").className = "board__token";
-					document.getElementById("player-2").className = "board__token";
-			}
-			
-			//move token on board
-			newField.appendChild(token);
-		
-		//check if player landed on trap
-		if (newField.dataset.trap==="true" || newField.dataset.trap==="true"){
-			let card = getCard();
-			console.log(card);
-			if (card.moveToField<field){
-				document.getElementById("textCardField").innerHTML=card.textBackWard;
-			}else if(card.moveToField===field){
-				document.getElementById("textCardField").innerHTML=card.textCurrent;
-			}else if(card.moveToField>field){
-				document.getElementById("textCardField").innerHTML=card.textForward;
-			}
-			$("#cardFieldModal").modal("show");
+			$("#cardFieldModal").modal({ backdrop: 'static', keyboard: false },"show");
 			playerObj = Cookies.getJSON(player);
 			playerObj.currentField=card.moveToField;
 			Cookies.set(player, playerObj);
-			
-			$("#closeCardModal").click(function(){
-				setTimeout(function(){
-					newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
-					newField.appendChild(token);
-				},500);
-			});
-			
-		}
-			
-		}, 1000);
+		},timeOut);
+
+		$("#closeCardModal").click(function(){
+			setTimeout(function(){
+				newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+				newField.appendChild(token);
+			},500);
+		});
 		
-		if (num[0]===6){
-			playerObj.rolledSix=true;
-			Cookies.set(player, playerObj);
+		$("#closeCardModalX").click(function(){
 			setTimeout(function(){
-				$("#rolledSixModal").modal("show");
-			},1000);
-			
-		}else{
-			setTimeout(function(){
-				if (player === "player-1"){
-					let playerObjTwo = Cookies.getJSON("player-2")
+				newField = document.querySelector(`[data-field=\"${card.moveToField}\"]`);
+				newField.appendChild(token);
+			},500);
+		});
+	}
+	
+	updateTurn(minTimeOut){
+		let player, playerObj;
 
-					playerObj = Cookies.getJSON(player);
-					playerObj.turn=false;
-					Cookies.set(player, playerObj);
+		player ="player-"+this.playerNr;
+		playerObj = Cookies.getJSON(player);
 
-					playerObjTwo.turn= true;
-					Cookies.set("player-2", playerObjTwo);
+		if (player === "player-1"){
+			if (playerObj.rolledSix==="true" || playerObj.rolledSix === true){
+				document.getElementById("rollDice").disabled = false;
+				playerObj.turn = true;
+				playerObj.rolledSix = false;
+				Cookies.set(player, playerObj);
 
-					document.getElementById("turn").innerHTML="computers turn";
-					document.getElementById("p1-turn").style.display="none";
-					document.getElementById("p2-turn").style.display="block";
-
-					setTimeout(function(){
-						p2.rollDice();
-					}, 3000);
-				}else{
-					let playerObjTwo = Cookies.getJSON("player-2");
-					playerObjTwo.turn=false;
-					Cookies.set("player-2", playerObjTwo);
-
-					playerObj = Cookies.getJSON(player);
-					playerObj.turn=true;
-					Cookies.set(player, playerObj);
-
+				setTimeout(function(){
 					document.getElementById("turn").innerHTML="your turn";
 					document.getElementById("p1-turn").style.display="block";
 					document.getElementById("p2-turn").style.display="none";
-				}
-			}, 1500);
+					document.getElementById("rolledSixModalText").innerHTML="You can roll again since you threw a six.";
+					
+					let playerObjOne = Cookies.getJSON("player-1");
+					let playerObjTwo = Cookies.getJSON("player-2");
+					if(playerObjOne.currentField === 30){
+						game.won("player-1", playerObjOne, playerObjTwo);
+					}else{
+						$("#rolledSixModal").modal("show");
+					}
+
+				}, minTimeOut+300);
+			}else{
+				let playerObjTwo
+				document.getElementById("rollDice").disabled = true;
+				
+				playerObjTwo = Cookies.getJSON("player-2");
+				playerObjTwo.turn=true;
+				Cookies.set("player-2", playerObjTwo);
+				setTimeout(function(){
+					document.getElementById("turn").innerHTML="computers turn";
+					document.getElementById("p1-turn").style.display="none";
+					document.getElementById("p2-turn").style.display="block";
+					
+					let playerObjOne = Cookies.getJSON("player-1");
+					let playerObjTwo = Cookies.getJSON("player-2");
+					if(playerObjOne.currentField === 30){
+						game.won("player-1", playerObjOne, playerObjTwo);
+					}
+				}, minTimeOut+300);
+			}
+		}else if(player === "player-2"){
+			if (playerObj.rolledSix==="true" || playerObj.rolledSix === true){
+				document.getElementById("rollDice").disabled = true;
+				playerObj.turn = true;
+				playerObj.rolledSix = false;
+				Cookies.set(player, playerObj);
+
+				setTimeout(function(){
+					document.getElementById("turn").innerHTML="computers turn";
+					document.getElementById("p1-turn").style.display="none";
+					document.getElementById("p2-turn").style.display="block";
+					document.getElementById("rolledSixModalText").innerHTML="The computer can roll again since it threw a six.";
+					
+					let playerObjOne = Cookies.getJSON("player-1");
+					let playerObjTwo = Cookies.getJSON("player-2");
+					if(playerObjTwo.currentField === 30){
+						game.won("player-2", playerObjOne, playerObjTwo);
+					}else{
+						$("#rolledSixModal").modal("show");
+					}
+				},minTimeOut+300);
+
+			}else{
+				let playerObjOne				
+
+				playerObjOne = Cookies.getJSON("player-1");
+				playerObjOne.turn=true;
+				Cookies.set("player-1", playerObjOne);
+
+				setTimeout(function(){
+					document.getElementById("turn").innerHTML="Your turn";
+					document.getElementById("p1-turn").style.display="block";
+					document.getElementById("p2-turn").style.display="none";
+					document.getElementById("rollDice").disabled = false;
+					
+					let playerObjOne = Cookies.getJSON("player-1");
+					let playerObjTwo = Cookies.getJSON("player-2");
+					if(playerObjTwo.currentField === 30){
+						game.won("player-2", playerObjOne, playerObjTwo);
+					}
+				},minTimeOut+300);
+			}
 		}
-		game.save();
 	}
 }
-
-
 
 //get selected characters from cookies and make new charaters
 let p1, p2, charOne, charTwo, game, savedGame;
 charOne = Cookies.getJSON('player-1').character;
 charTwo = Cookies.getJSON('player-2').character;
 savedGame = Cookies.getJSON('game');
-
-
 
 //initialize classes and start game
 p1="";
@@ -387,6 +531,12 @@ let traps = [
 		textCurrent: "You met Hodor, but he wasn't willing to carry you anywhere. You therefore have to stay in your current position", 
 		textBackWard:"You met Hodor, but he was beeing chased by white walkers. You have no other choice but to run aswell. You therefore have to move back to field 21", 
 		moveToField: 21
+	},
+	{
+		textForward:"You met Hodor while he was holding the door. You knew what was coming and ran forward as fast as possible, you can therefore move to field 7", 
+		textCurrent: "You met Hodor while he was holding the door. You felt sorry for him and helped him hold the door. You will therefore stay in your current position", 
+		textBackWard:"You met Hodor while he was holding the door. You choose not to take any action at all, resulting in the white walkers getting out chaising you back to field 7", 
+		moveToField: 7
 	}
 ];
 
@@ -399,6 +549,11 @@ function getCard(){
 //roll dice click eventlistener
 document.getElementById("rollDice").addEventListener("click", function(){
 	p1.rollDice();
+});
+
+
+document.getElementById("rollDiceComputer").addEventListener("click", function(){
+	p2.rollDice();
 });
 
 //info modal
@@ -436,7 +591,6 @@ document.getElementById("quitGameModalBtn").addEventListener("click", function()
 	
 	window.location.replace("index.html");
 });
-
 
 //restart game click event listener
 document.getElementById("btnNewGame").addEventListener("click", function(){
