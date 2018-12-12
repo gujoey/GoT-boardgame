@@ -50,6 +50,11 @@
 	.nav-link{
 		font-size: 30px;
 		color: $light-grey !important;
+		display: inline; 
+		margin-right: 30px;
+		@media screen and (max-width: 991px){
+			display: block; 
+		}
 		
 		&:hover{
 			color: $white !important; 

@@ -175,18 +175,31 @@ button.close {
   .nav-link {
     font-size: 30px;
     color: #B9B9B9 !important;
+    display: inline;
+    margin-right: 30px;
   }
+}
+@media screen and (max-width: 1350px) and (max-width: 991px) {
+  .nav-link {
+    display: block;
+  }
+}
+@media screen and (max-width: 1350px) {
   .nav-link:hover {
     color: #fff !important;
   }
+}
+@media screen and (max-width: 1350px) {
   .nav-link .fas {
     font-size: 30px;
   }
-
+}
+@media screen and (max-width: 1350px) {
   .navbar-toggler {
     border-color: transparent;
   }
-
+}
+@media screen and (max-width: 1350px) {
   .navbar-light .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(185,185,185)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
   }
