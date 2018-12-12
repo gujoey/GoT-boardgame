@@ -1,0 +1,38 @@
+.won-column{
+	color: $white !important; 
+	text-align: center;
+	margin-top: 30px;
+	background-color: $dark-grey;
+	padding: 15px;
+	@media screen and (max-width: $break-medium){
+		margin-top: 15px;
+	}
+	
+	&__h1{
+		background-color: $dark-grey;
+		margin: 0;
+		font-family: $p-font; 
+		font-size: 2.5rem;
+	}
+	&__h2{
+		color: $white;
+		text-align: center;
+		font-size: 2.5rem;
+		&--p-font{
+			font-family: $p-font; 
+		}
+	}
+	&__token{
+		display: block;
+		width: 70%;
+		margin: auto;
+	}
+	&__icon-winner{
+		color: $gold;
+	}
+	&__icon-looser{
+		color: $red;
+	}
+	 
+	//background-color: $dark-grey; 
+} 
