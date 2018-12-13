@@ -190,7 +190,6 @@ class Game{
 		let p1, p2;
 		p1 = Cookies.getJSON("player-1");
 		p2 = Cookies.getJSON("player-2");
-		console.log(p1);
 		
 		if (p1.turn === true || p1.turn === "true"){
 			document.getElementById("passDiceToComp").style.display="none";
@@ -338,7 +337,7 @@ class Character{
 			stayCurrent = card.textCurrent;
 			moveForward = card.textForward;
 		}else{
-			moveBack =  card.textBackWard.replace(/You/i, "The computer").replace(/your/g, "the computers") .replace(/you/g, "the computer");
+			moveBack =  card.textBackWard.replace(/You/g, "The computer").replace(/your/g, "the computers") .replace(/you/g, "the computer");
 			stayCurrent = card.textCurrent.replace(/You/g, "The computer").replace(/your/g, "the computers").replace(/you/g, "the computer");
 			moveForward = card.textForward.replace(/You/g, "The computer").replace(/your/g, "the computers").replace(/you/g, "the computer");
 		}
