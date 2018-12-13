@@ -132,6 +132,9 @@ small.red-text {
       color: #fff; }
   .vertical-nav__icon {
     font-size: 50px; }
+  .vertical-nav__logo {
+    margin: 15px 5px 5px 5px;
+    width: 90px; }
 
 @media screen and (max-width: 1670px) {
   .vertical-nav {
@@ -159,6 +162,9 @@ small.red-text {
       color: #fff !important; }
     .nav-link .fas {
       font-size: 22px; }
+    .nav-link__logo {
+      margin: 5px;
+      width: 90px; }
 
   .navbar-toggler {
     border-color: transparent; }
@@ -217,7 +223,7 @@ small.red-text {
   @media screen and (max-width: 1670px) {
     .game-container {
       left: 15px;
-      top: 5px; } }
+      top: 25px; } }
 
 .board {
   width: 1000px;
@@ -351,8 +357,9 @@ small.red-text {
   color: #fff !important;
   text-align: center;
   margin-top: 30px;
-  background-color: #181818;
-  padding: 15px; }
+  background-color: rgba(24, 24, 24, 0.9);
+  padding: 15px;
+  border: 4px solid #000; }
   @media screen and (max-width: 992px) {
     .won-column {
       margin-top: 15px; } }

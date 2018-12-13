@@ -567,13 +567,13 @@ function getCard(){
 }
 
 //roll dice click eventlistener
-document.getElementById("rollDice").addEventListener("click", function(){
+document.getElementById("rollDice").addEventListener("click", function(e){
+	e.preventDefault();
 	p1.rollDice();
 });
 
 
 document.getElementById("rollDiceComputer").addEventListener("click", function(){
-	
 	setTimeout(function(){
 		document.getElementById("passDiceToComp").style.display="none";
 		p2.rollDice();
@@ -581,45 +581,63 @@ document.getElementById("rollDiceComputer").addEventListener("click", function()
 });
 
 //info modal
-document.getElementById("gameInfo").addEventListener("click", function(){
+document.getElementById("gameInfo").addEventListener("click", function(e){
+	e.preventDefault();
 	$('#gameInfoModal').modal('show');
 });
 
-document.getElementById("gameInfoCollapsed").addEventListener("click", function(){
+document.getElementById("gameInfoCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
 	$('#gameInfoModal').modal('show');
 });
 
 
 
 //quit game modal
-document.getElementById("quitGame").addEventListener("click", function(){
+document.getElementById("quitGame").addEventListener("click", function(e){
+	e.preventDefault();
 	$('#quitGameModal').modal('show');
 });
 
-document.getElementById("quitGameCollapsed").addEventListener("click", function(){
+document.getElementById("quitGameCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
 	$('#quitGameModal').modal('show');
 });
 
 
 
 //modal restart game
-document.getElementById("restartGame").addEventListener("click", function(){
+document.getElementById("restartGame").addEventListener("click", function(e){
+	e.preventDefault();
 	$('#newGameModal').modal('show');
 });
 
-document.getElementById("restartGameCollapsed").addEventListener("click", function(){
+document.getElementById("restartGameCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
 	$('#newGameModal').modal('show');
 });
 
 //save game
-document.getElementById("saveGame").addEventListener("click", function(){
+document.getElementById("saveGame").addEventListener("click", function(e){
+	e.preventDefault();
 	game.save();
   	$("#saveGameModal").modal("show");
 });
 
-document.getElementById("saveGameCollapsed").addEventListener("click", function(){
+document.getElementById("saveGameCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
 	game.save();
   	$("#saveGameModal").modal("show");
+});
+
+document.getElementById("gobLogo").addEventListener("click", function(e){
+	e.preventDefault();
+  	$("#quitGameModal").modal("show");
+});
+
+document.getElementById("gobLogoCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
+  	$("#quitGameModal").modal("show");
 });
 
 

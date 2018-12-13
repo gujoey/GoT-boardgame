@@ -137,3 +137,23 @@ document.getElementById("quitGameCollapsed").addEventListener("click", function(
 	
 	window.location.replace("index.html");
 });
+
+document.getElementById("gobLogo").addEventListener("click", function(e){
+	e.preventDefault();
+	
+	let getGameStatus = Cookies.getJSON("game");
+	getGameStatus.newGame=true;
+	Cookies.set("game", getGameStatus);
+	
+  	window.location.replace("index.html");
+});
+
+document.getElementById("gobLogoCollapsed").addEventListener("click", function(e){
+	e.preventDefault();
+	
+	let getGameStatus = Cookies.getJSON("game");
+	getGameStatus.newGame=true;
+	Cookies.set("game", getGameStatus);
+	
+	window.location.replace("index.html");
+});

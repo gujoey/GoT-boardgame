@@ -31,6 +31,10 @@
 	&__icon{
 		font-size: 50px;
 	}
+	&__logo{ 
+		margin: 15px 5px 5px 5px;
+		width: 90px;
+	}
 }
 
 @media screen and (max-width: $hd-screens){
@@ -63,6 +67,11 @@
 		}
 		& .fas{
 			font-size: 22px;
+		}
+		
+		&__logo{
+			margin: 5px;
+			width: 90px;
 		}
 	}
 	.navbar-toggler{
